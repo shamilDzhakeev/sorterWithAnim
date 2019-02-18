@@ -1,0 +1,35 @@
+.mainDiv {
+    margin: 50px;
+    border: solid 1px #2c3e50;
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+    align-content: center;
+
+}
+.column {
+    position: absolute;
+    width: 25px;
+    background-color: #83b7da;
+    margin: 5px;
+    transition-property: left;
+    transition-duration: 0.2s;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: solid 1px #2c3e50;
+    
+}
+input[type=button] {
+    width: 120px;
+    height: 30px;
+    background-color: #496d91;
+    color: white;
+    border-radius: 12px;
+}
+
+.text-box{
+    background-color: white;
+    width: 200px;
+    height: 20px;
+    color: black
+}
