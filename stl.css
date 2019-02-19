@@ -19,7 +19,7 @@
     border: solid 1px #2c3e50;
     
 }
-input[type=button] {
+button {
     width: 120px;
     height: 30px;
     background-color: #496d91;
@@ -31,5 +31,5 @@ input[type=button] {
     background-color: white;
     width: 200px;
     height: 20px;
-    color: black
+    border-radius: 9px;
 }

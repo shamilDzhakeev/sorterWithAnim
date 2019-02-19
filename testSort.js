@@ -5,17 +5,13 @@ class Sorter {
     constructor(targetArr){
 
         this.targetArr = targetArr;
-        for (let i = 0; i < targetArr.length; i++) {
-          //alert(typeof targetArr[i]);
-          
-        }
         this.stepsToSort = [];
         this.arrayWithColumns = [];
         this.currentPosition = 0;
 
-        for (let i = 0; i < this.targetArr.length; i++){
+        for (let i = 0; i < targetArr.length; i++){
 
-            this.arrayWithColumns.push( {"place":i, value: this.targetArr[i]} );
+            this.arrayWithColumns.push( {"place":i, value: targetArr[i]} );
 
         } 
 
@@ -106,11 +102,7 @@ var sorter, graph;
 function inputedNewString() {
   
   var inputedString = document.getElementById("valueBox");
-  var arrayWithValues = [];
-
-  for (let item of inputedString.value) {
-    arrayWithValues.push(+item);
-  }
+  var arrayWithValues = inputedString.value.split('').map(Number);
   
   sorter = new Sorter(arrayWithValues);
   graph = new Graph(sorter.arrayWithColumns);
