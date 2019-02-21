@@ -3,9 +3,8 @@
     border: solid 1px #2c3e50;
     font-family: "Arial", sans-serif;
     font-size: 14px;
-    align-content: center;
-
 }
+
 .column {
     position: absolute;
     width: 25px;
@@ -17,14 +16,14 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border: solid 1px #2c3e50;
-    
 }
+
 button {
     width: 120px;
     height: 30px;
     background-color: #496d91;
     color: white;
-    border-radius: 12px;
+    border-radius: 17px;
 }
 
 .text-box{

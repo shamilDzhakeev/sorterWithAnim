@@ -4,7 +4,6 @@ class Sorter {
 
     constructor(targetArr){
 
-        this.targetArr = targetArr;
         this.stepsToSort = [];
         this.arrayWithColumns = [];
         this.currentPosition = 0;
@@ -12,7 +11,6 @@ class Sorter {
         for (let i = 0; i < targetArr.length; i++){
 
             this.arrayWithColumns.push( {"place":i, value: targetArr[i]} );
-
         } 
 
         var replaceCounter = 1; 
@@ -34,8 +32,10 @@ class Sorter {
         } 
     }
 
-    next(){
+     
 
+    next(){
+    
         if (this.currentPosition < this.stepsToSort.length){
 
             var m = this.stepsToSort[this.currentPosition];
@@ -69,26 +69,25 @@ class Sorter {
  
 };
 
-
 class Graph {
 
-  constructor(arrayWithColumns) {
+    constructor(arrayWithColumns) {
 
-    this.mainDiv = document.getElementById("mainDiv");
-    this.arrayWithColumns = arrayWithColumns;
-    this.mainDiv.innerHTML = "";
+        this.mainDiv = document.getElementById("mainDiv");
+        this.arrayWithColumns = arrayWithColumns;
+        this.mainDiv.innerHTML = "";
 
-    for (let i = 0; i < arrayWithColumns.length; i++){
-      var newDiv = document.createElement('div');
-      newDiv.classList.add("column");	
-      newDiv.style.height = this.arrayWithColumns[i].value * 17 + "px";
-      newDiv.style.left = 30 * (i + 2) + "px";	
-      newDiv.innerText = this.arrayWithColumns[i].value;
-      this.mainDiv.appendChild(newDiv);
-      
+        for (let i = 0; i < arrayWithColumns.length; i++){
+            var newDiv = document.createElement('div');
+            newDiv.classList.add("column");	
+            newDiv.style.height = this.arrayWithColumns[i].value * 17 + "px";
+            newDiv.style.left = 30 * (i + 2) + "px";	
+            newDiv.innerText = this.arrayWithColumns[i].value;
+            this.mainDiv.appendChild(newDiv);
+            
+        }
     }
-  }
-  
+    
   update(arrayWithColumns) {
     for (let i = 0; i < arrayWithColumns.length; i++) {
         mainDiv.children[this.arrayWithColumns[i].place].style.left = 30 * (i + 2) + "px";
@@ -101,20 +100,21 @@ var sorter, graph;
 
 function inputedNewString() {
   
-  var inputedString = document.getElementById("valueBox");
+  var inputedString = document.querySelector(".text-box");
   var arrayWithValues = inputedString.value.split('').map(Number);
   
-  sorter = new Sorter(arrayWithValues);
-  graph = new Graph(sorter.arrayWithColumns);
-}
-    
+    sorter = new Sorter(arrayWithValues);
+    graph = new Graph(sorter.arrayWithColumns);
+}  
 
 function previousStep() {
-  var mass = sorter.previous();
-  graph.update(mass);
+
+    graph.update(sorter.previous());
+
 }
 
 function nextSortStep() {
-  var mass = sorter.next();
-  graph.update(mass);
+
+  graph.update(sorter.next());
+
 }
