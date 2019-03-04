@@ -5,39 +5,26 @@ function Sorter (targetArr) {
     this.stepsToSort = [];
     this.arrayWithColumns = [];
     this.currentPosition = 0;
+    var replaceCounter = 1; 
 
     for (let i = 0; i < targetArr.length; i++){
         this.arrayWithColumns.push( {"place":i, value: targetArr[i]} );
-    } 
-
-    var replaceCounter = 1; 
-    var tempArray = this.arrayWithColumns.slice(0);
-
+    }   
+    
     while (replaceCounter){
         replaceCounter = 0;
-        for (let i = 0; i < tempArray.length - 1; i++){
-            if( tempArray[i].value > tempArray[i + 1].value){
+        for (let i = 0; i < targetArr.length - 1; i++){
+            if( targetArr[i] > targetArr[i + 1]){
                 
-                var swap = tempArray[i];
-                tempArray[i] = tempArray[i + 1];
-                tempArray[i + 1] = swap;
+                var swap = targetArr[i];
+                targetArr[i] = targetArr[i + 1];
+                targetArr[i + 1] = swap;
                 this.stepsToSort.push(i);
                 replaceCounter ++;
                                     
             }
         }
     } 
-
-
-    this.swap = function () {
-
-        var m = this.stepsToSort[this.currentPosition];
-        var n = this.stepsToSort[this.currentPosition] + 1;   
-        var swap = this.arrayWithColumns[m];
-        this.arrayWithColumns[m] = this.arrayWithColumns[n];
-        this.arrayWithColumns[n] = swap;
-
-    }
     
     this.step = function (direction) {
         switch(direction){
@@ -58,53 +45,65 @@ function Sorter (targetArr) {
             }
         }                
     }
+
+    this.swap = function () {
+
+        var m = this.stepsToSort[this.currentPosition];
+        var n = this.stepsToSort[this.currentPosition] + 1;   
+        var swap = this.arrayWithColumns[m];
+        this.arrayWithColumns[m] = this.arrayWithColumns[n];
+        this.arrayWithColumns[n] = swap;
+
+    }
+
+
 }
 
 function Graph (arrayWithColumns) {
- 
+    
     this.arrayWithColumns = arrayWithColumns;
+    this.mainDiv = document.getElementById("mainDiv");
+    this.newGroupOfColumns = document.createElement('div');
+    this.newGroupOfColumns.classList.add ('groupOfcolumns');
+    this.newGroupOfColumns.style.top = offset + 'px';
     
-    mainDiv = document.getElementById("mainDiv");
-    mainDiv.innerHTML = "";
+    for (let i = 0; i < this.arrayWithColumns.length; i++){
 
-    for (let i = 0; i < arrayWithColumns.length; i++){
-
-        var newDiv = document.createElement('div');
-        newDiv.classList.add("column");	
-        newDiv.style.height = this.arrayWithColumns[i].value * 17 + "px";
-        newDiv.style.left = 30 * (i + 2) + "px";	
-        newDiv.innerText = this.arrayWithColumns[i].value;
-        mainDiv.appendChild(newDiv);
+        var newColumn = document.createElement('div');
+        newColumn.classList.add("column");	
+        newColumn.style.height = this.arrayWithColumns[i].value * 16 + "px";
+        newColumn.style.left = 30 * (i + 2) + "px";	
+        newColumn.innerText = this.arrayWithColumns[i].value;
+        this.newGroupOfColumns.appendChild(newColumn);
 
     }
-    
+
+    this.mainDiv.appendChild (this.newGroupOfColumns);
+    offset += 170;
+
     this.update = function (arrayWithColumns) {
-    for (let i = 0; i < arrayWithColumns.length; i++) {
-        mainDiv.children[this.arrayWithColumns[i].place].style.left = 30 * (i + 2) + "px";
+
+        for (let i = 0; i < arrayWithColumns.length; i++) {
+            this.mainDiv.lastChild.children[this.arrayWithColumns[i].place].style.left = 30 * (i + 2) + "px";
+        }
     }
-  }
-  
 }
 
-var sorter, graph;
+var sorter, graph, offset = 90;
 
 function inputedNewString() {
-  
-  var inputedString = document.querySelector(".text-box");
-  var arrayWithValues = inputedString.value.split('').map(Number);
+    
+    var inputedString = document.querySelector(".text-box");
+    var arrayWithValues = inputedString.value.split('').map(Number);
   
     sorter = new Sorter(arrayWithValues);
     graph = new Graph(sorter.arrayWithColumns);
 }  
 
 function previousStep() {
-
     graph.update(sorter.step('back'));
-
 }
 
 function nextSortStep() {
-
   graph.update(sorter.step('up'));
-
 }
