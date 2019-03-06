@@ -1,4 +1,9 @@
-var sorterObj, renderObj;
+
+var sorterObjArr = []
+var renderObjArr = [];
+var groupsCount = 0;
+var j = 0;
+
 
 function Sorter (arr) {
     this.stepsToSort = [];
@@ -53,9 +58,16 @@ function Sorter (arr) {
 }
 
 function Render (columsArr) {
+    
     this.columsArr = columsArr;
     this.groupOfColums = document.createElement('div');
     this.groupOfColums.setAttribute('class', 'groupOfcolumns');
+    this.groupOfColums.setAttribute('id', groupsCount)
+    this.groupOfColums.onclick = function f(e) {
+        e = e || window.event;
+        var el = e.target || e.srcElement;
+        j = +el.id + 1;
+    }
     
     for (let i = 0; i < this.columsArr.length; i++) {
         var newColumn = document.createElement('div');
@@ -68,9 +80,9 @@ function Render (columsArr) {
     }
     document.body.children[1].appendChild(this.groupOfColums);
 
-    Render.prototype.updateRender = function (columsArr, groupID) {
+    Render.prototype.updateRender = function (columsArr) {
         for (let i = 0; i < columsArr.length; i++) {
-            let columsGroup = document.body.children[1].lastChild;
+            let columsGroup = document.body.children[1].children[j - 1];
             columsGroup.children[this.columsArr[i].palce].style.left = (i + 1) * 30 + 'px';
                    
         }
@@ -82,15 +94,18 @@ function inputedNewString() {
     var inputedString = document.querySelector(".text-box");
     var targetArr = inputedString.value.split('').map(Number);
   
-    sorterObj = new Sorter (targetArr);
-    renderObj = new Render (sorterObj.colums);
+    sorterObjArr.push ( new Sorter (targetArr));
+    renderObjArr.push ( new Render (sorterObjArr[groupsCount].colums));
+    groupsCount++;
+    j++; 
+    console.log (groupsCount);
 
 }  
 
 function previousStep() {
-    renderObj.updateRender(sorterObj.step('back'));
+    renderObjArr[j - 1].updateRender(sorterObjArr[j - 1].step('back'));
 }
 
 function nextSortStep() {
-    renderObj.updateRender(sorterObj.step('up')); 
+    renderObjArr[j - 1].updateRender(sorterObjArr[j - 1].step('up')); 
 }
