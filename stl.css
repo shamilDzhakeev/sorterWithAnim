@@ -1,12 +1,29 @@
-.mainDiv {
-    margin: 50px;
-    border: solid 1px #2c3e50;
-    font-family: "Arial", sans-serif;
-    font-size: 14px;
-    
+header{ 
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding-left: 30px;
+    background-color: #83b7da;
+    width: 100%;
+    z-index: 1;
+}
+
+.mainContainer{
+    margin: 50px 0;
+}
+
+.groupOfcolumns {
+    border: #2c3e50 2px solid;
+    border-radius: 5px;
+    width: auto;
+    height: 160px;
+    margin: 10px;  
 }
 
 .column {
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
     position: absolute;
     width: 25px;
     background-color: #83b7da;
@@ -20,7 +37,7 @@
 }
 
 button {
-    width: 120px;
+    width: 100px;
     height: 30px;
     background-color: #496d91;
     color: white;
@@ -29,13 +46,8 @@ button {
 
 .text-box{
     background-color: white;
-    width: 200px;
+    width: 300px;
     height: 20px;
-    border-radius: 9px;
-}
-
-.groupOfcolumns {
-
-    position: absolute;
-    left: 0px;
+    border-radius: 5px;
+    margin: 10px;
 }

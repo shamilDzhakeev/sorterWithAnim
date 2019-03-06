@@ -6,10 +6,12 @@
         <link rel="stylesheet" type="text/css" href="stl.css">
     </head>
     <body>
-        <button id="down" onclick="previousStep()">Step back</button>
-        <button id="up" onclick="nextSortStep()">Sort</button>
-        <input type="text" class="text-box" onchange="inputedNewString()" placeholder="Введите строку из цифр">
-        <div id="mainDiv" class="mainDiv"></div> 
+        <header>
+            <button id="down" onclick="previousStep()">Step back</button>
+            <button id="up" onclick="nextSortStep()">Sort</button>
+            <input type="text" class="text-box" onchange="inputedNewString()" placeholder="Введите строку из цифр">
+        </header>
+        <div id="mainContainer" class="mainContainer"></div> 
         <script src="testSort.js"></script>
     </body>
 </html>

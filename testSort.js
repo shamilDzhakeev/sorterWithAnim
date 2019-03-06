@@ -1,109 +1,96 @@
-"use strict";
+var sorterObj, renderObj;
 
-function Sorter (targetArr) {
-    
+function Sorter (arr) {
     this.stepsToSort = [];
-    this.arrayWithColumns = [];
-    this.currentPosition = 0;
-    var replaceCounter = 1; 
-
-    for (let i = 0; i < targetArr.length; i++){
-        this.arrayWithColumns.push( {"place":i, value: targetArr[i]} );
-    }   
+    this.colums = [];
+    this.currentPos = 0;
     
-    while (replaceCounter){
-        replaceCounter = 0;
-        for (let i = 0; i < targetArr.length - 1; i++){
-            if( targetArr[i] > targetArr[i + 1]){
-                
-                var swap = targetArr[i];
-                targetArr[i] = targetArr[i + 1];
-                targetArr[i + 1] = swap;
+    for (let i = 0; i < arr.length; i++) {
+        this.colums.push({palce: i, value: arr[i]});
+    }
+
+    var exitFlag = true;
+    while (exitFlag){
+        exitFlag = false;
+        for (let i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr [i + 1]) {
+                var swap = arr[i]
+                arr[i] = arr[i + 1];
+                arr[i + 1] = swap;
                 this.stepsToSort.push(i);
-                replaceCounter ++;
-                                    
-            }
+                exitFlag = true;
+                
+            } 
         }
-    } 
+    }
     
-    this.step = function (direction) {
-        switch(direction){
-            case 'up':{
-                if (this.currentPosition < this.stepsToSort.length) {
+    Sorter.prototype.swap = function () {
+        var m = this.stepsToSort[this.currentPos];
+        var n = this.stepsToSort[this.currentPos] + 1;
+        var swap = this.colums[m];
+        this.colums[m] = this.colums[n];
+        this.colums[n] = swap;
+    }
+
+    Sorter.prototype.step = function (direction){
+        switch (direction){
+            case 'up': {
+                if (this.currentPos < this.stepsToSort.length) {
                     this.swap();
-                    this.currentPosition = this.currentPosition + 1;
+                    this.currentPos = this.currentPos + 1;
                 }
-                return this.arrayWithColumns;
+                return this.colums;
             }
-
-            case 'back':{
-                if (this.currentPosition > 0) {
-                    this.currentPosition = this.currentPosition - 1;
+            case 'back': {
+                if (this.currentPos > 0) {
+                    this.currentPos = this.currentPos - 1;
                     this.swap();
-                } 
-                return this.arrayWithColumns;
+                }
+                return this.colums;
             }
-        }                
-    }
-
-    this.swap = function () {
-
-        var m = this.stepsToSort[this.currentPosition];
-        var n = this.stepsToSort[this.currentPosition] + 1;   
-        var swap = this.arrayWithColumns[m];
-        this.arrayWithColumns[m] = this.arrayWithColumns[n];
-        this.arrayWithColumns[n] = swap;
-
-    }
-
-
-}
-
-function Graph (arrayWithColumns) {
-    
-    this.arrayWithColumns = arrayWithColumns;
-    this.mainDiv = document.getElementById("mainDiv");
-    this.newGroupOfColumns = document.createElement('div');
-    this.newGroupOfColumns.classList.add ('groupOfcolumns');
-    this.newGroupOfColumns.style.top = offset + 'px';
-    
-    for (let i = 0; i < this.arrayWithColumns.length; i++){
-
-        var newColumn = document.createElement('div');
-        newColumn.classList.add("column");	
-        newColumn.style.height = this.arrayWithColumns[i].value * 16 + "px";
-        newColumn.style.left = 30 * (i + 2) + "px";	
-        newColumn.innerText = this.arrayWithColumns[i].value;
-        this.newGroupOfColumns.appendChild(newColumn);
-
-    }
-
-    this.mainDiv.appendChild (this.newGroupOfColumns);
-    offset += 170;
-
-    this.update = function (arrayWithColumns) {
-
-        for (let i = 0; i < arrayWithColumns.length; i++) {
-            this.mainDiv.lastChild.children[this.arrayWithColumns[i].place].style.left = 30 * (i + 2) + "px";
         }
     }
 }
 
-var sorter, graph, offset = 90;
+function Render (columsArr) {
+    this.columsArr = columsArr;
+    this.groupOfColums = document.createElement('div');
+    this.groupOfColums.setAttribute('class', 'groupOfcolumns');
+    
+    for (let i = 0; i < this.columsArr.length; i++) {
+        var newColumn = document.createElement('div');
+        newColumn.setAttribute('class', 'column');
+        newColumn.style.height = this.columsArr[i].value * 16 +'px';
+        newColumn.style.left = (i + 1) * 30 + 'px';
+        newColumn.innerText = this.columsArr[i].value;
+        this.groupOfColums.appendChild(newColumn);
+       
+    }
+    document.body.children[1].appendChild(this.groupOfColums);
+
+    Render.prototype.updateRender = function (columsArr, groupID) {
+        for (let i = 0; i < columsArr.length; i++) {
+            let columsGroup = document.body.children[1].lastChild;
+            columsGroup.children[this.columsArr[i].palce].style.left = (i + 1) * 30 + 'px';
+                   
+        }
+    }
+}
 
 function inputedNewString() {
     
     var inputedString = document.querySelector(".text-box");
-    var arrayWithValues = inputedString.value.split('').map(Number);
+    var targetArr = inputedString.value.split('').map(Number);
   
-    sorter = new Sorter(arrayWithValues);
-    graph = new Graph(sorter.arrayWithColumns);
+    sorterObj = new Sorter (targetArr);
+    renderObj = new Render (sorterObj.colums);
+
 }  
 
 function previousStep() {
-    graph.update(sorter.step('back'));
+    renderObj.updateRender(sorterObj.step('back'));
 }
 
 function nextSortStep() {
-  graph.update(sorter.step('up'));
+    renderObj.updateRender(sorterObj.step('up')); 
 }
