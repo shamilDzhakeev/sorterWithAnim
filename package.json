@@ -1,0 +1,19 @@
+{
+  "name": "sorter",
+  "version": "1.0.0",
+  "description": "test task",
+  "main": "testSort.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shamilDzhakeev/sorterWithAnim.git"
+  },
+  "author": "SJ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shamilDzhakeev/sorterWithAnim/issues"
+  },
+  "homepage": "https://github.com/shamilDzhakeev/sorterWithAnim#readme"
+}

@@ -44,6 +44,10 @@ button {
     border-radius: 17px;
 }
 
+.addButton{
+    width: 30px; 
+}
+
 .text-box{
     background-color: white;
     width: 300px;
