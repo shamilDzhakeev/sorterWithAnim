@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/shamilDzhakeev/sorterWithAnim/issues"
   },
-  "homepage": "https://github.com/shamilDzhakeev/sorterWithAnim#readme"
+  "homepage": "https://github.com/shamilDzhakeev/sorterWithAnim#readme",
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  },
+  "dependencies": {}
 }
