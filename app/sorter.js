@@ -13,7 +13,7 @@ export default class Sorter {
       exitFlag = false;
       for (let i = 0; i < this.targetArr.length - 1; i += 1) {
         if (this.targetArr[i] > this.targetArr[i + 1]) {
-          [this.targetArr[i + 1], this.targetArr[i]] = [this.targetArr[i], this.targetArr[i + 1]];
+          Sorter.swapElements(this.targetArr, i);
           this.stepsToSort.push(i);
           exitFlag = true;
         }
@@ -21,23 +21,21 @@ export default class Sorter {
     }
   }
 
-  swap() {
-    const m = this.stepsToSort[this.currentPos];
-    const n = this.stepsToSort[this.currentPos] + 1;
-    [this.colums[m], this.colums[n]] = [this.colums[n], this.colums[m]];
+  static swapElements(array, index) {
+    [array[index], array[index + 1]] = [array[index + 1], array[index]];
   }
 
   step(direction) {
     if (direction) {
       if (this.currentPos < this.stepsToSort.length) {
-        this.swap();
+        Sorter.swapElements(this.colums, this.stepsToSort[this.currentPos]);
         this.currentPos = this.currentPos + 1;
       }
       return this.colums;
     }
     if (this.currentPos > 0) {
       this.currentPos = this.currentPos - 1;
-      this.swap();
+      Sorter.swapElements(this.colums, this.stepsToSort[this.currentPos]);
     }
     return this.colums;
   }
