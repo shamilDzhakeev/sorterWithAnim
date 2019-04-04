@@ -7,7 +7,11 @@ export default class Renderer {
     const container = document.createElement('div');
     container.className = 'container';
     container.id = Renderer.count++;
+    const inputedString = document.createElement('div');
+    inputedString.className = 'stringLegend';
+    inputedString.innerText = `Original state: ${sorterObj.inputedString}`;
 
+    container.appendChild(inputedString);
     container.addEventListener('click', sorterObj.onClick);
     container.addEventListener('click', Renderer.setID);
     for (let i = 0; i < this.columsArr.length; i += 1) {
@@ -26,7 +30,7 @@ export default class Renderer {
     let columsContainer;
     for (let i = 0; i < columsArr.length; i += 1) {
       columsContainer = document.querySelector('.mainContainer').children[Renderer.count - 1];
-      columsContainer.children[this.columsArr[i].palce].style.left = Renderer.getColumBias(i);
+      columsContainer.children[this.columsArr[i].palce + 1].style.left = Renderer.getColumBias(i);
     }
   }
 
