@@ -1,25 +1,38 @@
 import drawHeared from './app/header.js';
 import Sorter from './app/sorter.js';
-import Render from './app/render.js';
+import Renderer from './app/renderer.js';
 
-let sorter;
-let render;
+const objCollection = new Map();
+
+let sorter = null;
+let renderer = null;
+
+function selectSorter(selectedSorter) {
+  sorter = selectedSorter;
+}
 
 function inputedNewString() {
   const inputedString = document.querySelector('.text-box').value;
   const valuesArr = inputedString.split('').map(Number);
-  const columsContainer = document.querySelector('.mainContainer');
-  columsContainer.innerText = '';
 
   sorter = new Sorter(valuesArr);
-  render = new Render(sorter.colums);
+  renderer = new Renderer({
+    colums: sorter.colums,
+    onClick: () => {
+      selectSorter(sorter);
+      console.log(sorter.colums.length);
+    },
+  });
+
+  objCollection.set(sorter, renderer);
+  // console.dir(objCollection);
 }
 
 function previousStep() {
-  render.updateRender(sorter.step(0));
+  objCollection.get(sorter).updateRender(sorter.step(0));
 }
 
 function nextSortStep() {
-  render.updateRender(sorter.step(1));
+  objCollection.get(sorter).updateRender(sorter.step(1));
 }
 drawHeared(inputedNewString, previousStep, nextSortStep);

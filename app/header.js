@@ -17,7 +17,7 @@ export default function drawHeared(inputedNewString, previousStep, nextSortStep)
   addButton.onclick = inputedNewString;
 
   textField.type = 'number';
-  textField.value = 51346892;
+  textField.value = Math.floor(Math.random() * 100000000) + 10000;
   textField.classList.add('text-box');
   textField.placeholder = 'Введите строку из цифр';
 
