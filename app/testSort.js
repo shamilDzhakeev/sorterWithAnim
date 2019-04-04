@@ -1,31 +1,32 @@
-import drawHeared from './app/header.js';
-import Sorter from './app/sorter.js';
-import Renderer from './app/renderer.js';
+/* eslint-disable import/extensions */
+import drawHeared from './header.js';
+import Sorter from './sorter.js';
+import Renderer from './renderer.js';
 
 const objCollection = new Map();
 
 let sorter = null;
 let renderer = null;
 
-function selectSorter(selectedSorter) {
-  sorter = selectedSorter;
-}
-
 function inputedNewString() {
   const inputedString = document.querySelector('.text-box').value;
   const valuesArr = inputedString.split('').map(Number);
 
-  sorter = new Sorter(valuesArr);
+  function selectSorter(selectedSorter) {
+    sorter = selectedSorter;
+  }
+
+  const sorterLocal = new Sorter(valuesArr);
+  sorter = sorterLocal;
   renderer = new Renderer({
-    colums: sorter.colums,
+    colums: sorterLocal.colums,
     onClick: () => {
-      selectSorter(sorter);
-      console.log(sorter.colums.length);
+      selectSorter(sorterLocal);
     },
+    inputedString,
   });
 
-  objCollection.set(sorter, renderer);
-  // console.dir(objCollection);
+  objCollection.set(sorterLocal, renderer);
 }
 
 function previousStep() {

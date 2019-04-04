@@ -9,13 +9,12 @@ export default class Renderer {
     container.id = Renderer.count++;
 
     container.addEventListener('click', sorterObj.onClick);
-
     container.addEventListener('click', Renderer.setID);
     for (let i = 0; i < this.columsArr.length; i += 1) {
       const newColumn = document.createElement('div');
       newColumn.className = 'column';
       newColumn.style.height = `${this.columsArr[i].value * COLUM_HEIGHT_COEFFICIENT}px`;
-      newColumn.style.left = Renderer.getColumBais(i);
+      newColumn.style.left = Renderer.getColumBias(i);
       newColumn.innerText = this.columsArr[i].value;
 
       container.appendChild(newColumn);
@@ -27,11 +26,11 @@ export default class Renderer {
     let columsContainer;
     for (let i = 0; i < columsArr.length; i += 1) {
       columsContainer = document.querySelector('.mainContainer').children[Renderer.count - 1];
-      columsContainer.children[this.columsArr[i].palce].style.left = Renderer.getColumBais(i);
+      columsContainer.children[this.columsArr[i].palce].style.left = Renderer.getColumBias(i);
     }
   }
 
-  static getColumBais(index) {
+  static getColumBias(index) {
     const COLUM_SPACING = 30;
     return `${(index + 1) * COLUM_SPACING}px`;
   }
