@@ -37,3 +37,4 @@ function nextSortStep() {
   objCollection.get(sorter).updateRender(sorter.step(1));
 }
 drawHeared(inputedNewString, previousStep, nextSortStep);
+console.dir('changed again');

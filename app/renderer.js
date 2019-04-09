@@ -5,9 +5,11 @@ export default class Renderer {
     const COLUM_HEIGHT_COEFFICIENT = 15;
     const mainContainer = document.querySelector('.mainContainer');
     const container = document.createElement('div');
-    container.className = 'container';
-    container.id = Renderer.count++;
     const inputedString = document.createElement('div');
+    container.className = 'container';
+    container.id = Renderer.count;
+    Renderer.count += 1;
+
     inputedString.className = 'stringLegend';
     inputedString.innerText = `Original state: ${sorterObj.inputedString}`;
 

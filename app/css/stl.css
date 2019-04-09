@@ -65,3 +65,12 @@ button {
     font-family: Arial, Helvetica, sans-serif;
     margin: 5px;
 }
+
+.test{
+    border: #496d91 20px solid
+}
+
+.highlight{
+    box-shadow:0 0 5px yellow;
+    border:20px solid yellow;
+}
