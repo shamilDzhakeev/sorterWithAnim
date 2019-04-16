@@ -18,8 +18,8 @@
     top:0;
   }
 
-  
-  .block {
+  /* test block */
+  .block { 
     position: relative;
     width: 98%;
     height: 600px;
@@ -64,13 +64,14 @@
     position: absolute;
     width: 25px;
     background-color: var(--light-blue);
-    margin: 5px;
+    margin: 20px;
+    margin-top: 15px;
     transition-property: left;
     transition-duration: 0.2s;
     text-align: center;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    border: solid 1px var(--dark-blue);
+    border: solid 2px var(--dark-blue);
   }
   
   header > button {
@@ -89,7 +90,13 @@
     margin: 5px;
   }
   
-  .stringLegend {
-    margin: 5px;
+  .label {
+    position: absolute;
+    font-size: 110%;
+    top: 1%;
+    color: var (--dark-blue);
+    left: 10px;
+    
+    
   }
   

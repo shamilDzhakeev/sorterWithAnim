@@ -37,12 +37,19 @@ export default class Renderer {
     removeButton.addEventListener('click', removeNode);
     this.container.appendChild(removeButton);
 
+    const label = `Original state: ${this.curValuesArr.join('')}`;
+
+    const labelBox = document.createElement('legend');
+    labelBox.classList.add('label');
+    labelBox.innerText = label;
+    this.container.appendChild(labelBox);
+
     blockToDraw.appendChild(this.container);
   }
 
   static getColumnOffset(index) {
     const COLUM_SPACING = 30;
-    return `${(index + 0.5) * COLUM_SPACING}px`;
+    return `${index * COLUM_SPACING}px`;
   }
 
   updateRender(newValuesArr) {
