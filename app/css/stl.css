@@ -11,16 +11,17 @@
   
   header {
     background-color: var(--light-blue);
-    padding: 2px;
     width: 100%;
     z-index: 1;
-    position: fixed;
+    
+    position: relative;
   }
+
   
   .block {
     position: relative;
-    width: 45%;
-    height: 20px;
+    width: 98%;
+    height: 600px;
     margin: 5px;
     border: #83b7da 2px solid;
     display: inline-block;
@@ -35,6 +36,7 @@
     height: 180px;
     margin: 10px;
   }
+
   
   .container:hover {
     box-shadow: 0 0 5px var(--dark-blue);

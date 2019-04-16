@@ -1,10 +1,11 @@
+/* eslint-disable import/no-named-as-default */
 /* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default  */
+
 import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
 
-const blockToDraw = document.body; // document.getElementById('b3');
+const blockToDraw = document.getElementById('b1');
 const colectMap = new Map();
 let sorter;
 let renderer;
