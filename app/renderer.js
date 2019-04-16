@@ -14,7 +14,6 @@ export default class Renderer {
 
     this.container.className = 'container';
     this.container.onclick = onclickEvent;
-    this.container.classList.add(`c${Renderer.counter}`);
 
     for (let i = 0; i < this.curValuesArr.length; i += 1) {
       const newColumn = document.createElement('div');
@@ -25,6 +24,19 @@ export default class Renderer {
 
       this.container.appendChild(newColumn);
     }
+
+    const removeButton = document.createElement('button');
+    removeButton.classList.add('remove-button');
+    removeButton.innerHTML = '✖';
+
+    function removeNode() {
+      const elementToRemove = this.parentNode;
+      elementToRemove.remove();
+    }
+
+    removeButton.addEventListener('click', removeNode);
+    this.container.appendChild(removeButton);
+
     blockToDraw.appendChild(this.container);
   }
 

@@ -3,6 +3,7 @@
     --dark-blue: #2c3e50;
     --white: white;
     --button-bg-color: #496d91;
+    --crimson:crimson;
   }
   
   body {
@@ -13,8 +14,8 @@
     background-color: var(--light-blue);
     width: 100%;
     z-index: 1;
-    
-    position: relative;
+    position: sticky;
+    top:0;
   }
 
   
@@ -35,9 +36,25 @@
     width: auto;
     height: 180px;
     margin: 10px;
+    padding-top: 20px; 
   }
 
-  
+  .remove-button {
+    position: absolute;
+    font-size: 110%;
+    top: 0;
+    color: var (--dark-blue);
+    right: 10px;
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: transparent;
+  }
+  .remove-button:hover{
+    color: var(--crimson);
+  }
+
   .container:hover {
     box-shadow: 0 0 5px var(--dark-blue);
     border: 2px solid var(--dark-blue);
@@ -56,7 +73,7 @@
     border: solid 1px var(--dark-blue);
   }
   
-  button {
+  header > button {
     width: 80px;
     height: 25px;
     background-color: var(--button-bg-color);
