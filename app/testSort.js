@@ -7,25 +7,37 @@ import drawHeader from './header';
 
 const blockToDraw = document.getElementById('b1');
 const colectMap = new Map();
-let sorter;
-let renderer;
+let sorter = null;
+let renderer = null;
 
 function addNewGraph() {
   const targetString = document.querySelector('.text-box').value;
   const valuesArr = targetString.split('').map(Number);
+  const sorterLocal = new Sorter(valuesArr);
+  sorter = sorterLocal;
 
-  sorter = new Sorter(valuesArr);
-  renderer = new Renderer(sorter.curStateArr, blockToDraw);
+  function selectSorter(selected) {
+    sorter = selected;
+  }
+
+  const rendererObj = {
+    valuesArr,
+    blockToDraw,
+    onclickEvent: () => {
+      selectSorter(sorterLocal);
+    },
+  };
+
+  renderer = new Renderer(rendererObj);
+  colectMap.set(sorter, renderer);
 }
 
-colectMap.set(sorter, renderer);
-
 function doNextStep() {
-  renderer.updateRender(sorter.doStepUp());
+  colectMap.get(sorter).updateRender(sorter.doStepUp());
 }
 
 function doStepBack() {
-  renderer.updateRender(sorter.doStepBack());
+  colectMap.get(sorter).updateRender(sorter.doStepBack());
 }
 
 const options = {
