@@ -8,19 +8,15 @@ module.exports = {
     publicPath: '/dist',
   },
 
-  resolve: {
-    extensions: ['.ts', '.js'],
-  },
-
   module: {
     rules: [
-      /*       {
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
         },
-      }, */
+      },
 
       {
         test: /\.ts$/,
@@ -32,5 +28,5 @@ module.exports = {
     ],
   },
 
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
 };

@@ -1,49 +1,56 @@
 export default class Renderer {
-  constructor(sorterObj) {
-    this.columsArr = sorterObj.colums;
+  constructor(arr, boxToDraw) {
+    const COLUMN_HEIGHT = 15;
+    this.curValuesArr = [...arr];
+    this.container = document.createElement('div');
+    this.index = [];
+    this.ofsetsArr = [];
 
-    const COLUM_HEIGHT_COEFFICIENT = 15;
-    const mainContainer = document.querySelector('.mainContainer');
-    const container = document.createElement('div');
-    const inputedString = document.createElement('div');
-    container.className = 'container';
-    container.id = Renderer.count;
-    Renderer.count += 1;
+    for (let i = 0; i < arr.length; i++) {
+      this.index.push(i);
+      this.ofsetsArr.push(Renderer.getColumnOffset(i));
+    }
 
-    inputedString.className = 'stringLegend';
-    inputedString.innerText = `Original state: ${sorterObj.inputedString}`;
+    this.container.className = 'container';
+    this.container.classList.add(`c${Renderer.counter}`);
+    Renderer.counter += 1;
 
-    container.appendChild(inputedString);
-    container.addEventListener('click', sorterObj.onClick);
-    container.addEventListener('click', Renderer.setID);
-    for (let i = 0; i < this.columsArr.length; i += 1) {
+    for (let i = 0; i < this.curValuesArr.length; i += 1) {
       const newColumn = document.createElement('div');
       newColumn.className = 'column';
-      newColumn.style.height = `${this.columsArr[i].value * COLUM_HEIGHT_COEFFICIENT}px`;
-      newColumn.style.left = Renderer.getColumBias(i);
-      newColumn.innerText = this.columsArr[i].value;
+      newColumn.style.height = `${this.curValuesArr[i] * COLUMN_HEIGHT}px`;
+      newColumn.style.left = Renderer.getColumnOffset(i);
+      newColumn.innerText = this.curValuesArr[i];
+      newColumn.id = i;
 
-      container.appendChild(newColumn);
+      this.container.appendChild(newColumn);
     }
-    mainContainer.appendChild(container);
+    boxToDraw.appendChild(this.container);
   }
-
-  updateRender(columsArr) {
-    let columsContainer;
-    for (let i = 0; i < columsArr.length; i += 1) {
-      columsContainer = document.querySelector('.mainContainer').children[Renderer.count - 1];
-      columsContainer.children[this.columsArr[i].palce + 1].style.left = Renderer.getColumBias(i);
-    }
-  }
-
-  static getColumBias(index) {
+  static counter = 0;
+  static getColumnOffset(index) {
     const COLUM_SPACING = 30;
-    return `${(index + 1) * COLUM_SPACING}px`;
+    return `${(index + 0.5) * COLUM_SPACING}px`;
   }
 
-  static setID() {
-    Renderer.count = +this.id + 1;
+  updateRender(newValuesArr) {
+    let tempIndex = null;
+    let changeFlag = false;
+    const col = this.container.getElementsByTagName('div');
+    for (let i = 0; i < newValuesArr.length; i++) {
+      if (newValuesArr[i] != this.curValuesArr[i]) {
+        tempIndex = [...this.index];
+        [tempIndex[i], tempIndex[i + 1]] = [tempIndex[i + 1], tempIndex[i]];
+        changeFlag = true;
+        break;
+      }
+    }
+    if (changeFlag) {
+      this.index = tempIndex;
+    }
+    for (let i = 0; i < col.length; i++) {
+      col[this.index[i]].style.left = this.ofsetsArr[i];
+    }
+    this.curValuesArr = newValuesArr;
   }
 }
-
-Renderer.count = 0;

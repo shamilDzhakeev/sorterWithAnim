@@ -1,39 +1,37 @@
-/* eslint-disable import/extensions */
-import drawHeared from './header.js';
-import Sorter from './sorter.js';
-import Renderer from './renderer.js';
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable import/no-named-as-default  */
+import Sorter from './sorter';
+import Renderer from './renderer';
+import drawHeader from './header';
 
-const objCollection = new Map();
+const blockToDraw = document.body; // document.getElementById('b3');
+const colectMap = new Map();
+let sorter;
+let renderer;
 
-let sorter = null;
-let renderer = null;
+function addNewGraph() {
+  const targetString = document.querySelector('.text-box').value;
+  const valuesArr = targetString.split('').map(Number);
 
-function inputedNewString() {
-  const inputedString = document.querySelector('.text-box').value;
-  const valuesArr = inputedString.split('').map(Number);
-
-  function selectSorter(selectedSorter) {
-    sorter = selectedSorter;
-  }
-
-  const sorterLocal = new Sorter(valuesArr);
-  sorter = sorterLocal;
-  renderer = new Renderer({
-    colums: sorterLocal.colums,
-    onClick: () => {
-      selectSorter(sorterLocal);
-    },
-    inputedString,
-  });
-
-  objCollection.set(sorterLocal, renderer);
+  sorter = new Sorter(valuesArr);
+  renderer = new Renderer(sorter.curStateArr, blockToDraw);
 }
 
-function previousStep() {
-  objCollection.get(sorter).updateRender(sorter.step(0));
+colectMap.set(sorter, renderer);
+
+function doNextStep() {
+  renderer.updateRender(sorter.doStepUp());
 }
 
-function nextSortStep() {
-  objCollection.get(sorter).updateRender(sorter.step(1));
+function doStepBack() {
+  renderer.updateRender(sorter.doStepBack());
 }
-drawHeared(inputedNewString, previousStep, nextSortStep);
+
+const options = {
+  onAddButtonClick: addNewGraph,
+  onDownButtonClick: doStepBack,
+  onUpButtonClick: doNextStep,
+  destenationNode: blockToDraw,
+};
+
+drawHeader(options);

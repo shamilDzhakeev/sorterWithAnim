@@ -1,43 +1,40 @@
 export default class Sorter {
   constructor(arr) {
-    this.targetArr = [...arr];
-    this.stepsToSort = [];
-    this.colums = [];
-    this.currentPos = 0;
-
-    this.targetArr.forEach((elem, i) => {
-      this.colums.push({ palce: i, value: elem });
-    });
+    const targetArr = [...arr];
+    this.sortStates = [];
+    this.sortStates.push([...arr]);
+    this.curStateIndex = 0;
 
     let exitFlag = true;
     while (exitFlag) {
       exitFlag = false;
-      for (let i = 0; i < this.targetArr.length - 1; i += 1) {
-        if (this.targetArr[i] > this.targetArr[i + 1]) {
-          Sorter.swapNeighbors(this.targetArr, i);
-          this.stepsToSort.push(i);
+      for (let i = 0; i < targetArr.length - 1; i += 1) {
+        if (targetArr[i] > targetArr[i + 1]) {
+          [targetArr[i], targetArr[i + 1]] = [targetArr[i + 1], targetArr[i]];
+          this.sortStates.push([...targetArr]);
           exitFlag = true;
         }
       }
     }
   }
 
-  static swapNeighbors(array, index) {
-    [array[index], array[index + 1]] = [array[index + 1], array[index]];
+  get curStateArr() {
+    return this.sortStates[this.curStateIndex];
   }
 
-  step(direction) {
-    if (direction) {
-      if (this.currentPos < this.stepsToSort.length) {
-        Sorter.swapNeighbors(this.colums, this.stepsToSort[this.currentPos]);
-        this.currentPos = this.currentPos + 1;
-      }
-      return this.colums;
+  doStepUp() {
+    if (this.curStateIndex < this.sortStates.length - 1) {
+      this.curStateIndex += 1;
+      return this.sortStates[this.curStateIndex];
     }
-    if (this.currentPos > 0) {
-      this.currentPos = this.currentPos - 1;
-      Sorter.swapNeighbors(this.colums, this.stepsToSort[this.currentPos]);
+    return this.sortStates[this.curStateIndex];
+  }
+
+  doStepBack() {
+    if (this.curStateIndex > 0) {
+      this.curStateIndex -= 1;
+      return this.sortStates[this.curStateIndex];
     }
-    return this.colums;
+    return this.sortStates[this.curStateIndex];
   }
 }

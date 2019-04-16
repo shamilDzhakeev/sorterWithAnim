@@ -1,4 +1,8 @@
-export default function drawHeared(inputedNewString, previousStep, nextSortStep) {
+export default function drawHeader(optionsObject) {
+  const {
+    onAddButtonClick, onDownButtonClick, onUpButtonClick, destenationNode,
+  } = optionsObject;
+
   const header = document.createElement('header');
   const upButton = document.createElement('button');
   const downButton = document.createElement('button');
@@ -7,17 +11,17 @@ export default function drawHeared(inputedNewString, previousStep, nextSortStep)
 
   downButton.id = 'down';
   downButton.innerText = 'Step back';
-  downButton.onclick = previousStep;
+  downButton.onclick = onDownButtonClick;
 
   upButton.id = 'up';
   upButton.innerText = 'Sort';
-  upButton.onclick = nextSortStep;
+  upButton.onclick = onUpButtonClick;
 
   addButton.innerText = '+';
-  addButton.onclick = inputedNewString;
+  addButton.onclick = onAddButtonClick;
 
   textField.type = 'number';
-  textField.value = Math.floor(Math.random() * 100000) + 100;
+  textField.value = '5124'; // Math.floor(Math.random() * 100000) + 100;
   textField.classList.add('text-box');
   textField.placeholder = 'Введите строку из цифр';
 
@@ -25,5 +29,5 @@ export default function drawHeared(inputedNewString, previousStep, nextSortStep)
   header.appendChild(upButton);
   header.appendChild(textField);
   header.appendChild(addButton);
-  document.body.appendChild(header);
+  destenationNode.appendChild(header);
 }
