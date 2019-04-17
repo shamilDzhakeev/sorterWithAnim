@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './app/testSort.js',
+  entry: './app/current.js',
   output: {
     path: path.join(__dirname, '/dist'),
     filename: './build.js',

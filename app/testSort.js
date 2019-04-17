@@ -5,46 +5,50 @@ import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
 
-const blockToDraw = document.getElementById('b1');
-const colectMap = new Map();
-let sorter = null;
-let renderer = null;
+function mainFunc(containerToRender) {
+  const blockToDraw = containerToRender; // document.getElementById('b1');
+  const colectMap = new Map();
+  let sorter = null;
+  let renderer = null;
 
-function addNewGraph() {
-  const targetString = document.querySelector('.text-box').value;
-  const valuesArr = targetString.split('').map(Number);
-  const sorterLocal = new Sorter(valuesArr);
-  sorter = sorterLocal;
+  function addNewGraph() {
+    const targetString = document.querySelector('.text-box').value;
+    const valuesArr = targetString.split('').map(Number);
+    const sorterLocal = new Sorter(valuesArr);
+    sorter = sorterLocal;
 
-  function selectSorter(selected) {
-    sorter = selected;
+    function selectSorter(selected) {
+      sorter = selected;
+    }
+
+    const rendererObj = {
+      valuesArr,
+      blockToDraw,
+      onclickEvent: () => {
+        selectSorter(sorterLocal);
+      },
+    };
+
+    renderer = new Renderer(rendererObj);
+    colectMap.set(sorter, renderer);
   }
 
-  const rendererObj = {
-    valuesArr,
-    blockToDraw,
-    onclickEvent: () => {
-      selectSorter(sorterLocal);
-    },
+  function doNextStep() {
+    colectMap.get(sorter).updateRender(sorter.doStepUp());
+  }
+
+  function doStepBack() {
+    colectMap.get(sorter).updateRender(sorter.doStepBack());
+  }
+
+  const options = {
+    onAddButtonClick: addNewGraph,
+    onDownButtonClick: doStepBack,
+    onUpButtonClick: doNextStep,
+    destenationNode: blockToDraw,
   };
 
-  renderer = new Renderer(rendererObj);
-  colectMap.set(sorter, renderer);
+  drawHeader(options);
 }
 
-function doNextStep() {
-  colectMap.get(sorter).updateRender(sorter.doStepUp());
-}
-
-function doStepBack() {
-  colectMap.get(sorter).updateRender(sorter.doStepBack());
-}
-
-const options = {
-  onAddButtonClick: addNewGraph,
-  onDownButtonClick: doStepBack,
-  onUpButtonClick: doNextStep,
-  destenationNode: blockToDraw,
-};
-
-drawHeader(options);
+export default mainFunc;

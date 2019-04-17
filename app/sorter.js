@@ -18,10 +18,6 @@ export default class Sorter {
     }
   }
 
-  get curStateArr() {
-    return this.sortStates[this.curStateIndex];
-  }
-
   doStepUp() {
     if (this.curStateIndex < this.sortStates.length - 1) {
       this.curStateIndex += 1;
