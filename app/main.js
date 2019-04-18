@@ -5,7 +5,7 @@ import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
 
-function mainFunc(containerToRender) {
+function drawNewgraph(containerToRender = document.body) {
   const blockToDraw = containerToRender; // document.getElementById('b1');
   const colectMap = new Map();
   let sorter = null;
@@ -51,4 +51,4 @@ function mainFunc(containerToRender) {
   drawHeader(options);
 }
 
-export default mainFunc;
+export default drawNewgraph;

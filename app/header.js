@@ -21,7 +21,7 @@ export default function drawHeader(optionsObject) {
   addButton.onclick = onAddButtonClick;
 
   textField.type = 'number';
-  textField.value = '5124'; // Math.floor(Math.random() * 100000) + 100;
+  // textField.value = '5124'; // Math.floor(Math.random() * 100000) + 100;
   textField.classList.add('text-box');
   textField.placeholder = 'Введите строку из цифр';
 
