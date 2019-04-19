@@ -1,5 +1,17 @@
 export default class Renderer {
-  constructor(optionsObj) {
+  private curValuesArr: number[];
+
+  private container: HTMLDivElement;
+
+  private index: number[];
+
+  private ofsetsArr: string[];
+
+  constructor(optionsObj: {
+  valuesArr: number[];
+  blockToDraw: HTMLElement;
+  onclickEvent: () => void;
+  }) {
     const { valuesArr: arr, blockToDraw, onclickEvent } = optionsObj;
     const COLUMN_HEIGHT = 15;
     this.curValuesArr = [...arr];
@@ -7,10 +19,10 @@ export default class Renderer {
     this.index = [];
     this.ofsetsArr = [];
 
-    for (let i = 0; i < arr.length; i += 1) {
-      this.index.push(i);
-      this.ofsetsArr.push(Renderer.getColumnOffset(i));
-    }
+    arr.forEach((element, index) => {
+      this.index.push(index);
+      this.ofsetsArr.push(Renderer.getColumnOffset(index));
+    });
 
     this.container.className = 'container';
     this.container.onclick = onclickEvent;
@@ -20,7 +32,8 @@ export default class Renderer {
       newColumn.className = 'column';
       newColumn.style.height = `${this.curValuesArr[i] * COLUMN_HEIGHT}px`;
       newColumn.style.left = Renderer.getColumnOffset(i);
-      newColumn.innerText = this.curValuesArr[i];
+
+      newColumn.innerText = <string>(<unknown> this.curValuesArr[i]); // ???
 
       this.container.appendChild(newColumn);
     }
@@ -29,7 +42,8 @@ export default class Renderer {
     removeButton.classList.add('remove-button');
     removeButton.innerHTML = '✖';
 
-    function removeNode() {
+    function removeNode(): void {
+      // @ts-ignore
       const elementToRemove = this.parentNode;
       elementToRemove.remove();
     }
@@ -47,15 +61,15 @@ export default class Renderer {
     blockToDraw.appendChild(this.container);
   }
 
-  static getColumnOffset(index) {
+  private static getColumnOffset(index: number): string {
     const COLUM_SPACING = 30;
     return `${index * COLUM_SPACING}px`;
   }
 
-  updateRender(newValuesArr) {
-    let tempIndex = null;
+  public updateRender(newValuesArr: number[]) {
+    let tempIndex: number[] = [];
     let changeFlag = false;
-    const col = this.container.getElementsByTagName('div');
+    const columns = this.container.getElementsByTagName('div');
     for (let i = 0; i < newValuesArr.length; i += 1) {
       if (newValuesArr[i] !== +this.curValuesArr[i]) {
         tempIndex = [...this.index];
@@ -67,8 +81,8 @@ export default class Renderer {
     if (changeFlag) {
       this.index = tempIndex;
     }
-    for (let i = 0; i < col.length; i += 1) {
-      col[this.index[i]].style.left = this.ofsetsArr[i];
+    for (let i = 0; i < columns.length; i += 1) {
+      columns[this.index[i]].style.left = this.ofsetsArr[i];
     }
     this.curValuesArr = newValuesArr;
   }

@@ -1,27 +1,27 @@
-/* eslint-disable import/no-named-as-default */
-/* eslint-disable import/no-named-as-default-member */
-
 import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
 
-function drawNewgraph(containerToRender = document.body) {
-  const blockToDraw = containerToRender; // document.getElementById('b1');
+function drawNewGraph(containerToRender: HTMLElement): void {
+  const blockToDraw = containerToRender;
   const colectMap = new Map();
-  let sorter = null;
-  let renderer = null;
+  let sorter: Sorter;
+  let renderer: Renderer;
 
-  function addNewGraph() {
-    const targetString = document.querySelector('.text-box').value;
+  function addNewGraph(): void {
+    const textFieldElement = document.querySelector<HTMLInputElement>('.text-box');
+
+    // @ts-ignore const textFieldElement: HTMLInputElement | null]
+    const targetString = textFieldElement.value;
     const valuesArr = targetString.split('').map(Number);
     const sorterLocal = new Sorter(valuesArr);
     sorter = sorterLocal;
 
-    function selectSorter(selected) {
+    function selectSorter(selected: Sorter): void {
       sorter = selected;
     }
 
-    const rendererObj = {
+    const rendererOptions = {
       valuesArr,
       blockToDraw,
       onclickEvent: () => {
@@ -29,15 +29,15 @@ function drawNewgraph(containerToRender = document.body) {
       },
     };
 
-    renderer = new Renderer(rendererObj);
+    renderer = new Renderer(rendererOptions);
     colectMap.set(sorter, renderer);
   }
 
-  function doNextStep() {
+  function doNextStep(): void {
     colectMap.get(sorter).updateRender(sorter.doStepUp());
   }
 
-  function doStepBack() {
+  function doStepBack(): void {
     colectMap.get(sorter).updateRender(sorter.doStepBack());
   }
 
@@ -51,4 +51,4 @@ function drawNewgraph(containerToRender = document.body) {
   drawHeader(options);
 }
 
-export default drawNewgraph;
+export default drawNewGraph;

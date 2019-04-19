@@ -1,11 +1,14 @@
 export default class Sorter {
-  constructor(arr) {
+  private sortStates: number[][];
+
+  private curStateIndex: number = 0;
+
+  constructor(arr: number[]) {
     const targetArr = [...arr];
     this.sortStates = [];
     this.sortStates.push([...arr]);
-    this.curStateIndex = 0;
 
-    let exitFlag = true;
+    let exitFlag: boolean = true;
     while (exitFlag) {
       exitFlag = false;
       for (let i = 0; i < targetArr.length - 1; i += 1) {
@@ -18,7 +21,7 @@ export default class Sorter {
     }
   }
 
-  doStepUp() {
+  public doStepUp(): number[] {
     if (this.curStateIndex < this.sortStates.length - 1) {
       this.curStateIndex += 1;
       return this.sortStates[this.curStateIndex];
@@ -26,7 +29,7 @@ export default class Sorter {
     return this.sortStates[this.curStateIndex];
   }
 
-  doStepBack() {
+  public doStepBack(): number[] {
     if (this.curStateIndex > 0) {
       this.curStateIndex -= 1;
       return this.sortStates[this.curStateIndex];
