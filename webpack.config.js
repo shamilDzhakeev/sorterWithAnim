@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 
 module.exports = {
@@ -5,28 +6,31 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: './build.js',
-    publicPath: '/dist',
+    publicPath: '/dist/dynamic'
+  },
+
+  devServer: {
+    hot: true,
+    open: true,
+    port: 8085,
+    overlay: true
+  },
+
+  resolve: {
+    extensions: ['.ts', '.js']
   },
 
   module: {
     rules: [
-      // {
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'babel-loader',
-      //   },
-      // },
-
       {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: {
-          loader: 'ts-loader',
-        },
-      },
-    ],
+          loader: 'ts-loader'
+        }
+      }
+    ]
   },
 
-  devtool: 'source-map',
+  devtool: 'eval-source-map'
 };

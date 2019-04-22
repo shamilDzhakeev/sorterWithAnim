@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+
 import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
@@ -9,9 +11,8 @@ function drawNewGraph(containerToRender: HTMLElement): void {
   let renderer: Renderer;
 
   function addNewGraph(): void {
-    const textFieldElement = document.querySelector<HTMLInputElement>('.text-box');
+    const textFieldElement = document.querySelector('.text-box');
 
-    // @ts-ignore const textFieldElement: HTMLInputElement | null]
     const targetString = textFieldElement.value;
     const valuesArr = targetString.split('').map(Number);
     const sorterLocal = new Sorter(valuesArr);
@@ -24,9 +25,9 @@ function drawNewGraph(containerToRender: HTMLElement): void {
     const rendererOptions = {
       valuesArr,
       blockToDraw,
-      onclickEvent: () => {
+      onclickEvent: (): void => {
         selectSorter(sorterLocal);
-      },
+      }
     };
 
     renderer = new Renderer(rendererOptions);
@@ -45,7 +46,7 @@ function drawNewGraph(containerToRender: HTMLElement): void {
     onAddButtonClick: addNewGraph,
     onDownButtonClick: doStepBack,
     onUpButtonClick: doNextStep,
-    destenationNode: blockToDraw,
+    destenationNode: blockToDraw
   };
 
   drawHeader(options);

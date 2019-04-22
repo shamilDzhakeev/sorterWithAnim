@@ -7,10 +7,10 @@ export default class Renderer {
 
   private ofsetsArr: string[];
 
-  constructor(optionsObj: {
-  valuesArr: number[];
-  blockToDraw: HTMLElement;
-  onclickEvent: () => void;
+  public constructor(optionsObj: {
+    valuesArr: number[];
+    blockToDraw: HTMLElement;
+    onclickEvent: () => void;
   }) {
     const { valuesArr: arr, blockToDraw, onclickEvent } = optionsObj;
     const COLUMN_HEIGHT = 15;
@@ -19,10 +19,12 @@ export default class Renderer {
     this.index = [];
     this.ofsetsArr = [];
 
-    arr.forEach((element, index) => {
-      this.index.push(index);
-      this.ofsetsArr.push(Renderer.getColumnOffset(index));
-    });
+    arr.forEach(
+      (element, index): void => {
+        this.index.push(index);
+        this.ofsetsArr.push(Renderer.getColumnOffset(index));
+      }
+    );
 
     this.container.className = 'container';
     this.container.onclick = onclickEvent;
@@ -33,7 +35,7 @@ export default class Renderer {
       newColumn.style.height = `${this.curValuesArr[i] * COLUMN_HEIGHT}px`;
       newColumn.style.left = Renderer.getColumnOffset(i);
 
-      newColumn.innerText = <string>(<unknown> this.curValuesArr[i]); // ???
+      newColumn.innerText = this.curValuesArr[i]; // ???
 
       this.container.appendChild(newColumn);
     }
@@ -43,7 +45,6 @@ export default class Renderer {
     removeButton.innerHTML = '✖';
 
     function removeNode(): void {
-      // @ts-ignore
       const elementToRemove = this.parentNode;
       elementToRemove.remove();
     }
@@ -52,7 +53,6 @@ export default class Renderer {
     this.container.appendChild(removeButton);
 
     const label = `Original state: ${this.curValuesArr.join('')}`;
-
     const labelBox = document.createElement('legend');
     labelBox.classList.add('label');
     labelBox.innerText = label;
@@ -66,7 +66,7 @@ export default class Renderer {
     return `${index * COLUM_SPACING}px`;
   }
 
-  public updateRender(newValuesArr: number[]) {
+  public updateRender(newValuesArr: number[]): void {
     let tempIndex: number[] = [];
     let changeFlag = false;
     const columns = this.container.getElementsByTagName('div');

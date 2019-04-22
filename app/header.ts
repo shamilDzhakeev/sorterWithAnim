@@ -1,6 +1,12 @@
-export default function drawHeader(optionsObject: any): void {
+/* eslint-disable import/no-unresolved */
+import { HeaderOptions } from './types';
+
+export default function drawHeader(optionsObject: HeaderOptions): void {
   const {
-    onAddButtonClick, onDownButtonClick, onUpButtonClick, destenationNode,
+    onAddButtonClick,
+    onDownButtonClick,
+    onUpButtonClick,
+    destenationNode
   } = optionsObject;
 
   const header = document.createElement('header');

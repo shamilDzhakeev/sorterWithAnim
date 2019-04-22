@@ -1,6 +1,7 @@
+/* eslint-disable import/no-unresolved */
 import drawNewGraph from './main';
 
-let destinationBlock: HTMLElement | null = document.getElementById('b1');
+let destinationBlock = document.getElementById('b1');
 
 if (!destinationBlock) {
   destinationBlock = document.body;

@@ -3,12 +3,12 @@ export default class Sorter {
 
   private curStateIndex: number = 0;
 
-  constructor(arr: number[]) {
+  public constructor(arr: number[]) {
     const targetArr = [...arr];
     this.sortStates = [];
     this.sortStates.push([...arr]);
 
-    let exitFlag: boolean = true;
+    let exitFlag = true;
     while (exitFlag) {
       exitFlag = false;
       for (let i = 0; i < targetArr.length - 1; i += 1) {
