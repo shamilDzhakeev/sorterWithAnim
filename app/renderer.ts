@@ -1,3 +1,5 @@
+import { RendererOptions } from './types';
+
 export default class Renderer {
   private curValuesArr: number[];
 
@@ -7,11 +9,7 @@ export default class Renderer {
 
   private ofsetsArr: string[];
 
-  public constructor(optionsObj: {
-    valuesArr: number[];
-    blockToDraw: HTMLElement;
-    onclickEvent: () => void;
-  }) {
+  public constructor(optionsObj: RendererOptions) {
     const { valuesArr: arr, blockToDraw, onclickEvent } = optionsObj;
     const COLUMN_HEIGHT = 1.5;
     this.curValuesArr = [...arr];
@@ -23,7 +21,7 @@ export default class Renderer {
       (element, index): void => {
         this.index.push(index);
         this.ofsetsArr.push(Renderer.getColumnOffset(index));
-      }
+      },
     );
 
     this.container.className = 'container';
@@ -31,11 +29,12 @@ export default class Renderer {
 
     for (let i = 0; i < this.curValuesArr.length; i += 1) {
       const newColumn = document.createElement('div');
+
       newColumn.className = 'column';
       newColumn.style.height = `${this.curValuesArr[i] * COLUMN_HEIGHT}px`;
       newColumn.style.left = Renderer.getColumnOffset(i);
-      // @ts-ignore
-      newColumn.innerText = this.curValuesArr[i]; // ???
+
+      newColumn.innerText = this.curValuesArr[i].toString();
 
       this.container.appendChild(newColumn);
     }
@@ -45,7 +44,6 @@ export default class Renderer {
     removeButton.innerHTML = '✖';
 
     function removeNode(): void {
-      // @ts-ignore
       const elementToRemove = this.parentNode;
       elementToRemove.remove();
     }

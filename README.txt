@@ -2,12 +2,5 @@ Current state:
 
 1. Настроен Webpack с Dev-server на перекомпиляцию TypeScrtipt в JS. См. конфиг Webpack.
 2. Включена Source Map. См. конфиг Webpack.
-3. Настроен линтер ESlint c плагином Airbnb + Prettier. См. соответствующие конфигурационные файлы.
+3. Настроен линтер ESlint c @typescript-eslint и plugin:@typescript-eslint/recommended
 4. Конфигурация для компиляции TypeScript в tsconfig.json, он же транспилирует ES6 в ES5.
-
-Необходимо:
-  1. Переписать весь JS код в app на Typescrtipt.
-
-Дополнительно:
-  1. Реализовать подсвечивание активного контейнера, автоматическое снятие при повторном выборе либо выборе другого контейнера. 
-  2. Контроль вводимого значения. Только цифры.

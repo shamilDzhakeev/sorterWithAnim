@@ -5,4 +5,8 @@ export interface HeaderOptions {
   destenationNode: HTMLElement;
 }
 
-export const test = 1;
+export interface RendererOptions {
+  valuesArr: number[];
+  blockToDraw: HTMLElement;
+  onclickEvent: () => void;
+}

@@ -26,7 +26,7 @@ function drawNewGraph(containerToRender: HTMLElement): void {
       blockToDraw,
       onclickEvent: (): void => {
         selectSorter(sorterLocal);
-      }
+      },
     };
 
     renderer = new Renderer(rendererOptions);
@@ -45,7 +45,7 @@ function drawNewGraph(containerToRender: HTMLElement): void {
     onAddButtonClick: addNewGraph,
     onDownButtonClick: doStepBack,
     onUpButtonClick: doNextStep,
-    destenationNode: blockToDraw
+    destenationNode: blockToDraw,
   };
 
   drawHeader(options);

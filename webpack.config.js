@@ -5,18 +5,18 @@ const conf = {
   entry: './app/index.ts',
   output: {
     path: path.resolve('./'),
-    filename: './dist/build.js'
+    filename: './dist/build.js',
   },
 
   devServer: {
     hot: true,
     open: true,
     port: 8085,
-    overlay: true
+    overlay: true,
   },
 
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
   },
 
   module: {
@@ -25,13 +25,13 @@ const conf = {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: {
-          loader: 'ts-loader'
-        }
-      }
-    ]
+          loader: 'ts-loader',
+        },
+      },
+    ],
   },
 
-  devtool: 'eval-source-map'
+  devtool: 'eval-source-map',
 };
 
 module.exports = conf;

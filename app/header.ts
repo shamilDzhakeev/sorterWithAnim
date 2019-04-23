@@ -5,7 +5,7 @@ export default function drawHeader(optionsObject: HeaderOptions): void {
     onAddButtonClick,
     onDownButtonClick,
     onUpButtonClick,
-    destenationNode
+    destenationNode,
   } = optionsObject;
 
   const header = document.createElement('header');
