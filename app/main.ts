@@ -1,5 +1,3 @@
-/* eslint-disable import/no-unresolved */
-
 import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
@@ -12,10 +10,10 @@ function drawNewGraph(containerToRender: HTMLElement): void {
   let renderer: Renderer;
 
   function addNewGraph(): void {
-    // const textFieldElement = document.querySelector('.text-box');
-    // @ts-ignore
-    // const targetString = textFieldElement.value;
-    const valuesArr = getData(); // targetString.split('').map(Number);
+    const valuesArr = getData();
+    if (valuesArr === null) {
+      return;
+    }
     const sorterLocal = new Sorter(valuesArr);
     sorter = sorterLocal;
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { HeaderOptions } from './types';
 
 export default function drawHeader(optionsObject: HeaderOptions): void {

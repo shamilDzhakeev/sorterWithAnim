@@ -13,7 +13,7 @@ export default class Renderer {
     onclickEvent: () => void;
   }) {
     const { valuesArr: arr, blockToDraw, onclickEvent } = optionsObj;
-    const COLUMN_HEIGHT = 1;
+    const COLUMN_HEIGHT = 1.5;
     this.curValuesArr = [...arr];
     this.container = document.createElement('div');
     this.index = [];

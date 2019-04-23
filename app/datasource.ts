@@ -1,16 +1,15 @@
-export default function getData(): number[] {
+/* eslint-disable no-console */
+export default function getData(): number[] | null {
   const req = new XMLHttpRequest();
   req.open('GET', 'http://localhost:1234/array', false);
   req.send();
 
   const responseObj = JSON.parse(req.responseText);
-  console.log(req);
 
   if (req.status !== 200) {
     console.log('Некорректные данные с сервера.');
-  } else {
-    console.log(responseObj.result);
-    return responseObj.result;
+    return null;
   }
-  return [1];
+  console.log(responseObj.result);
+  return responseObj.result;
 }

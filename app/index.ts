@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import drawNewGraph from './main';
 
 let destinationBlock = document.getElementById('b1');

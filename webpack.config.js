@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 
-module.exports = {
+const conf = {
   entry: './app/index.ts',
   output: {
     path: path.resolve('./'),
@@ -33,3 +33,5 @@ module.exports = {
 
   devtool: 'eval-source-map'
 };
+
+module.exports = conf;
