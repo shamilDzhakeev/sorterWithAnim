@@ -3,6 +3,7 @@
 import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
+import getData from './datasource';
 
 function drawNewGraph(containerToRender: HTMLElement): void {
   const blockToDraw = containerToRender;
@@ -11,10 +12,10 @@ function drawNewGraph(containerToRender: HTMLElement): void {
   let renderer: Renderer;
 
   function addNewGraph(): void {
-    const textFieldElement = document.querySelector('.text-box');
-
-    const targetString = textFieldElement.value;
-    const valuesArr = targetString.split('').map(Number);
+    // const textFieldElement = document.querySelector('.text-box');
+    // @ts-ignore
+    // const targetString = textFieldElement.value;
+    const valuesArr = getData(); // targetString.split('').map(Number);
     const sorterLocal = new Sorter(valuesArr);
     sorter = sorterLocal;
 

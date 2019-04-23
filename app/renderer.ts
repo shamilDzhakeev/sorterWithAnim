@@ -13,7 +13,7 @@ export default class Renderer {
     onclickEvent: () => void;
   }) {
     const { valuesArr: arr, blockToDraw, onclickEvent } = optionsObj;
-    const COLUMN_HEIGHT = 15;
+    const COLUMN_HEIGHT = 1;
     this.curValuesArr = [...arr];
     this.container = document.createElement('div');
     this.index = [];
@@ -34,7 +34,7 @@ export default class Renderer {
       newColumn.className = 'column';
       newColumn.style.height = `${this.curValuesArr[i] * COLUMN_HEIGHT}px`;
       newColumn.style.left = Renderer.getColumnOffset(i);
-
+      // @ts-ignore
       newColumn.innerText = this.curValuesArr[i]; // ???
 
       this.container.appendChild(newColumn);
@@ -45,6 +45,7 @@ export default class Renderer {
     removeButton.innerHTML = '✖';
 
     function removeNode(): void {
+      // @ts-ignore
       const elementToRemove = this.parentNode;
       elementToRemove.remove();
     }
@@ -52,7 +53,7 @@ export default class Renderer {
     removeButton.addEventListener('click', removeNode);
     this.container.appendChild(removeButton);
 
-    const label = `Original state: ${this.curValuesArr.join('')}`;
+    const label = `Original state: ${this.curValuesArr.join(' ')}`;
     const labelBox = document.createElement('legend');
     labelBox.classList.add('label');
     labelBox.innerText = label;
@@ -62,7 +63,7 @@ export default class Renderer {
   }
 
   private static getColumnOffset(index: number): string {
-    const COLUM_SPACING = 30;
+    const COLUM_SPACING = 38;
     return `${index * COLUM_SPACING}px`;
   }
 

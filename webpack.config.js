@@ -4,9 +4,8 @@ const path = require('path');
 module.exports = {
   entry: './app/index.ts',
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: './build.js',
-    publicPath: '/dist/dynamic'
+    path: path.resolve('./'),
+    filename: './dist/build.js'
   },
 
   devServer: {
