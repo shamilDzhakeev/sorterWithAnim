@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
-const conf = {
+module.exports = {
   entry: './app/index.ts',
   output: {
     path: path.resolve('./'),
@@ -10,7 +12,6 @@ const conf = {
 
   devServer: {
     hot: true,
-    open: true,
     port: 8085,
     overlay: true,
   },
@@ -31,7 +32,9 @@ const conf = {
     ],
   },
 
-  devtool: 'eval-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({ title: 'My app' }),
+    //new HtmlWebpackInlineSourcePlugin(),
+  ],
+  devtool: 'inline-source-map',
 };
-
-module.exports = conf;

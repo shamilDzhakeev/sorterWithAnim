@@ -7,22 +7,16 @@ export default class Renderer {
 
   private index: number[];
 
-  private ofsetsArr: string[];
-
   public constructor(optionsObj: RendererOptions) {
     const { valuesArr: arr, blockToDraw, onclickEvent } = optionsObj;
     const COLUMN_HEIGHT = 1.5;
     this.curValuesArr = [...arr];
     this.container = document.createElement('div');
     this.index = [];
-    this.ofsetsArr = [];
 
-    arr.forEach(
-      (element, index): void => {
-        this.index.push(index);
-        this.ofsetsArr.push(Renderer.getColumnOffset(index));
-      },
-    );
+    for (let i = 0; i < arr.length; i++) {
+      this.index.push(i);
+    }
 
     this.container.className = 'container';
     this.container.onclick = onclickEvent;
@@ -81,7 +75,7 @@ export default class Renderer {
       this.index = tempIndex;
     }
     for (let i = 0; i < columns.length; i += 1) {
-      columns[this.index[i]].style.left = this.ofsetsArr[i];
+      columns[this.index[i]].style.left = Renderer.getColumnOffset(i);
     }
     this.curValuesArr = newValuesArr;
   }

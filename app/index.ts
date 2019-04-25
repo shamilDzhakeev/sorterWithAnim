@@ -1,9 +1,4 @@
-import drawNewGraph from './main';
+/* Entry point */
+import drawNewGraph from './components/main';
 
-let destinationBlock = document.getElementById('b1');
-
-if (!destinationBlock) {
-  destinationBlock = document.body;
-}
-
-drawNewGraph(destinationBlock);
+drawNewGraph(document.body);

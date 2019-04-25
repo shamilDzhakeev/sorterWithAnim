@@ -1,7 +1,7 @@
 import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
-import getData from './datasource';
+import getDataSource from './data-from-server';
 
 function drawNewGraph(containerToRender: HTMLElement): void {
   const blockToDraw = containerToRender;
@@ -10,22 +10,20 @@ function drawNewGraph(containerToRender: HTMLElement): void {
   let renderer: Renderer;
 
   function addNewGraph(): void {
-    const valuesArr = getData();
+    const valuesArr = getDataSource();
     if (valuesArr === null) {
       return;
     }
-    const sorterLocal = new Sorter(valuesArr);
+    let sorterLocal = new Sorter(valuesArr);
     sorter = sorterLocal;
-
-    function selectSorter(selected: Sorter): void {
-      sorter = selected;
-    }
 
     const rendererOptions = {
       valuesArr,
       blockToDraw,
       onclickEvent: (): void => {
-        selectSorter(sorterLocal);
+        (function selectSorter(selected: Sorter): void {
+          sorter = selected;
+        })(sorterLocal);
       },
     };
 
