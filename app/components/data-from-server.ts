@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-export default function getDataSource(): number[] | null {
+export default function getData(): number[] | null {
   const req = new XMLHttpRequest();
   req.open('GET', 'http://localhost:1234/array', false);
   req.send();

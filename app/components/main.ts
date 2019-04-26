@@ -1,7 +1,7 @@
 import Sorter from './sorter';
 import Renderer from './renderer';
 import drawHeader from './header';
-import getDataSource from './data-from-server';
+import getData from './data-from-server';
 
 function drawNewGraph(containerToRender: HTMLElement): void {
   const blockToDraw = containerToRender;
@@ -10,7 +10,7 @@ function drawNewGraph(containerToRender: HTMLElement): void {
   let renderer: Renderer;
 
   function addNewGraph(): void {
-    const valuesArr = getDataSource();
+    const valuesArr = getData();
     if (valuesArr === null) {
       return;
     }

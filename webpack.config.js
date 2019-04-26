@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: './app/index.ts',
+  entry: {
+    arr: './app/index.ts',
+  },
   output: {
-    path: path.resolve('./'),
-    filename: './dist/build.js',
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, './dist'),
   },
 
+  devtool: 'inline-source-map',
   devServer: {
-    hot: true,
+    contentBase: path.resolve(__dirname, './dist'),
     port: 8085,
     overlay: true,
   },
@@ -29,12 +32,12 @@ module.exports = {
           loader: 'ts-loader',
         },
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({ title: 'My app' }),
-    //new HtmlWebpackInlineSourcePlugin(),
-  ],
-  devtool: 'inline-source-map',
+  plugins: [new HtmlWebpackPlugin({ title: 'Sort' }), new CleanWebpackPlugin()],
 };
