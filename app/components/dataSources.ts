@@ -1,5 +1,3 @@
-// источник 1 - Input в DOM
-
 import { textField } from './header';
 
 // источник 1 - Input в DOM
