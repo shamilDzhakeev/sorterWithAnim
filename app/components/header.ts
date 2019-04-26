@@ -1,18 +1,18 @@
 import { HeaderOptions } from './types';
 
-export default function drawHeader(optionsObject: HeaderOptions): void {
+export const textField = document.createElement('input');
+const header = document.createElement('header');
+const upButton = document.createElement('button');
+const downButton = document.createElement('button');
+const addButton = document.createElement('button');
+
+export function drawHeader(optionsObject: HeaderOptions): void {
   const {
     onAddButtonClick,
     onDownButtonClick,
     onUpButtonClick,
     destenationNode,
   } = optionsObject;
-
-  const header = document.createElement('header');
-  const upButton = document.createElement('button');
-  const downButton = document.createElement('button');
-  const textField = document.createElement('input');
-  const addButton = document.createElement('button');
 
   downButton.id = 'down';
   downButton.innerText = 'Step back';

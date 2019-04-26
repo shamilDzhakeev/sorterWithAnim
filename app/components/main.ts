@@ -1,6 +1,6 @@
 import Sorter from './sorter';
 import Renderer from './renderer';
-import drawHeader from './header';
+import { drawHeader } from './header';
 import { getDataSource } from './dataSources';
 
 const dataSource = getDataSource('string');

@@ -1,16 +1,18 @@
 // источник 1 - Input в DOM
 
+import { textField } from './header';
+
+// источник 1 - Input в DOM
 class DataSourceInput {
   public getData(): number[] | null {
-    // @ts-ignore
-    const targetString = document.querySelector('.text-box').value;
-    const valuesArr = targetString ? targetString.split('').map(Number) : null;
+    const valuesArr = textField.value
+      ? textField.value.split('').map(Number)
+      : null;
     return valuesArr;
   }
 }
 
 // источник 2 - сервер
-
 class DataSourceServer {
   public getData(): number[] | null {
     const req = new XMLHttpRequest();
