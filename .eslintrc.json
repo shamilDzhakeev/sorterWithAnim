@@ -15,7 +15,7 @@
     "sourceType": "module"
   },
   "rules": {
-    "@typescript-eslint/ban-ts-ignore": "error",
+    "@typescript-eslint/ban-ts-ignore": "warn",
     "import/no-unresolved": "off"
   }
 }
