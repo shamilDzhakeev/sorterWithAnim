@@ -1,16 +1,21 @@
-import { textField } from './header';
+import { header } from './header';
 
-// источник 1 - Input в DOM
 class DataSourceInput {
+  public textField: HTMLInputElement;
+  public constructor() {
+    this.textField = document.createElement('input');
+    this.textField.classList.add('text-box');
+    this.textField.placeholder = 'Введите строку из цифр';
+    header.appendChild(this.textField);
+  }
   public getData(): number[] | null {
-    const valuesArr = textField.value
-      ? textField.value.split('').map(Number)
+    const valuesArr = this.textField.value
+      ? this.textField.value.split('').map(Number)
       : null;
     return valuesArr;
   }
 }
 
-// источник 2 - сервер
 class DataSourceServer {
   public getData(): number[] | null {
     const req = new XMLHttpRequest();

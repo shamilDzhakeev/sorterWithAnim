@@ -1,5 +1,5 @@
 /* Entry point */
 import './css/stl.css';
-import drawNewGraph from './components/main';
+import drawComponent from './components/main';
 
-drawNewGraph(document.body);
+drawComponent(document.body);

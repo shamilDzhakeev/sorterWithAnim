@@ -3,9 +3,8 @@ import Renderer from './renderer';
 import { drawHeader } from './header';
 import { getDataSource } from './dataSources';
 
-const dataSource = getDataSource('string');
-
-function drawNewGraph(containerToRender: HTMLElement): void {
+function drawComponent(containerToRender: HTMLElement): void {
+  const dataSource = getDataSource('server');
   const blockToDraw = containerToRender;
   const colectMap = new Map();
   let sorter: Sorter;
@@ -51,4 +50,4 @@ function drawNewGraph(containerToRender: HTMLElement): void {
   drawHeader(options);
 }
 
-export default drawNewGraph;
+export default drawComponent;
