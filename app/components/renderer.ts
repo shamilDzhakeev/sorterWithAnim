@@ -14,9 +14,7 @@ export default class Renderer {
     this.container = document.createElement('div');
     this.index = [];
 
-    for (let i = 0; i < arr.length; i++) {
-      this.index.push(i);
-    }
+    this.index = arr.map((_, i): number => i);
 
     this.container.className = 'container';
     this.container.onclick = onclickEvent;
@@ -54,9 +52,10 @@ export default class Renderer {
     blockToDraw.appendChild(this.container);
   }
 
+  private static COLUM_SPACING = 38;
+
   private static getColumnOffset(index: number): string {
-    const COLUM_SPACING = 38;
-    return `${index * COLUM_SPACING}px`;
+    return `${index * Renderer.COLUM_SPACING}px`;
   }
 
   public updateRender(newValuesArr: number[]): void {

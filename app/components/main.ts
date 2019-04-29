@@ -4,7 +4,7 @@ import { drawHeader } from './header';
 import { getDataSource } from './dataSources';
 
 function drawComponent(containerToRender: HTMLElement): void {
-  const dataSource = getDataSource('server');
+  const dataSource = getDataSource('string');
   const blockToDraw = containerToRender;
   const colectMap = new Map();
   let sorter: Sorter;
@@ -12,7 +12,7 @@ function drawComponent(containerToRender: HTMLElement): void {
 
   function addNewGraph(): void {
     const valuesArr = dataSource.getData();
-    if (valuesArr === null) {
+    if (!valuesArr.length) {
       return;
     }
     let sorterLocal = new Sorter(valuesArr);
@@ -22,9 +22,7 @@ function drawComponent(containerToRender: HTMLElement): void {
       valuesArr,
       blockToDraw,
       onclickEvent: (): void => {
-        (function selectSorter(selected: Sorter): void {
-          sorter = selected;
-        })(sorterLocal);
+        sorter = sorterLocal;
       },
     };
 

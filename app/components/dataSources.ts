@@ -8,16 +8,16 @@ class DataSourceInput {
     this.textField.placeholder = 'Введите строку из цифр';
     header.appendChild(this.textField);
   }
-  public getData(): number[] | null {
+  public getData(): number[] {
     const valuesArr = this.textField.value
       ? this.textField.value.split('').map(Number)
-      : null;
+      : [];
     return valuesArr;
   }
 }
 
 class DataSourceServer {
-  public getData(): number[] | null {
+  public getData(): number[] {
     const req = new XMLHttpRequest();
     req.open('GET', 'http://localhost:1234/array', false);
     req.send();
@@ -26,7 +26,7 @@ class DataSourceServer {
 
     if (req.status !== 200) {
       console.log('Некорректные данные с сервера.');
-      return null;
+      return [];
     }
     return responseObj.result;
   }
