@@ -2,22 +2,17 @@ import { RendererOptions } from './types';
 
 export default class Renderer {
   private curValuesArr: number[];
-
+  private index: number[];
   private container: HTMLDivElement;
 
-  private index: number[];
-
-  public constructor(optionsObj: RendererOptions) {
-    const { valuesArr: arr, blockToDraw, onclickEvent } = optionsObj;
+  public constructor(valuesArr: number[]) {
+    this.container = document.createElement('div');
+    const arr = [...valuesArr];
     const COLUMN_HEIGHT = 15;
     this.curValuesArr = [...arr];
-    this.container = document.createElement('div');
+
     this.index = [];
-
     this.index = arr.map((_, i): number => i);
-
-    this.container.className = 'container';
-    this.container.onclick = onclickEvent;
 
     for (let i = 0; i < this.curValuesArr.length; i += 1) {
       const newColumn = document.createElement('div');
@@ -31,25 +26,13 @@ export default class Renderer {
       this.container.appendChild(newColumn);
     }
 
-    const removeButton = document.createElement('button');
-    removeButton.classList.add('remove-button');
-    removeButton.innerHTML = '✖';
-
-    function removeNode(): void {
-      const elementToRemove = this.parentNode;
-      elementToRemove.remove();
-    }
-
-    removeButton.addEventListener('click', removeNode);
-    this.container.appendChild(removeButton);
-
     const label = `Original state: ${this.curValuesArr.join(' ')}`;
     const labelBox = document.createElement('legend');
     labelBox.classList.add('label');
     labelBox.innerText = label;
     this.container.appendChild(labelBox);
 
-    blockToDraw.appendChild(this.container);
+    //columnsContainer.appendChild(this.container);
   }
 
   private static COLUM_SPACING = 38;

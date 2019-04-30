@@ -1,51 +1,35 @@
 import Sorter from './sorter';
 import Renderer from './renderer';
-import { drawHeader } from './header';
+import { drawEmptyTemplate } from './header';
 import { getDataSource } from './dataSources';
 
-function drawComponent(containerToRender: HTMLElement): void {
-  const dataSource = getDataSource('string');
-  const blockToDraw = containerToRender;
-  const colectMap = new Map();
-  let sorter: Sorter;
-  let renderer: Renderer;
+function addNewSorterer(blockToDraw: HTMLElement): void {
+  const valuesArr = [1, 5, 2, 4];
+  const collect = new Map();
+  const sorter = new Sorter(valuesArr);
 
-  function addNewGraph(): void {
-    const valuesArr = dataSource.getData();
-    if (!valuesArr.length) {
-      return;
-    }
-    let sorterLocal = new Sorter(valuesArr);
-    sorter = sorterLocal;
-
-    const rendererOptions = {
-      valuesArr,
-      blockToDraw,
-      onclickEvent: (): void => {
-        sorter = sorterLocal;
-      },
-    };
-
-    renderer = new Renderer(rendererOptions);
-    colectMap.set(sorter, renderer);
-  }
+  const renderer = new Renderer(valuesArr);
 
   function doNextStep(): void {
-    colectMap.get(sorter).updateRender(sorter.doStepUp());
+    collect.get(sorter).updateRender(sorter.doStepUp());
   }
 
   function doStepBack(): void {
-    colectMap.get(sorter).updateRender(sorter.doStepBack());
+    collect.get(sorter).updateRender(sorter.doStepBack());
   }
 
   const options = {
-    onAddButtonClick: addNewGraph,
     onDownButtonClick: doStepBack,
     onUpButtonClick: doNextStep,
     destenationNode: blockToDraw,
   };
 
-  drawHeader(options);
+  drawEmptyTemplate(options);
+
+  //источник доделать
+  const dataSource = getDataSource('string');
+
+  collect.set(sorter, renderer);
 }
 
-export default drawComponent;
+export default addNewSorterer;

@@ -1,12 +1,9 @@
-import { header } from './header';
+//import { header } from './header';
 
 class DataSourceInput {
   public textField: HTMLInputElement;
   public constructor() {
     this.textField = document.createElement('input');
-    this.textField.classList.add('text-box');
-    this.textField.placeholder = 'Введите строку из цифр';
-    header.appendChild(this.textField);
   }
   public getData(): number[] {
     const valuesArr = this.textField.value

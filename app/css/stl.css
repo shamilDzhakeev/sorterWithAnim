@@ -1,5 +1,5 @@
 :root {
-  --light-blue: #83b7da;
+  --light-blue: #8cc8f0;
   --dark-blue: #2c3e50;
   --white: white;
   --button-bg-color: #496d91;
@@ -12,10 +12,10 @@ body {
 
 header {
   background-color: var(--light-blue);
-  width: 100%;
+
+  width: auto;
+  padding: 10px;
   z-index: 1;
-  position: sticky;
-  top: 0;
 }
 
 /* test block */
@@ -24,7 +24,7 @@ header {
   width: 95%;
   height: 600px;
   margin: 5px;
-  border: #83b7da 2px solid;
+  border: var(--light-blue) 2px solid;
   display: inline-block;
   overflow: auto;
 }
@@ -35,52 +35,52 @@ header {
   border-radius: 5px;
   width: auto;
   height: 180px;
-  margin: 10px;
-  padding-top: 20px;
+  margin: 10px 0;
+}
+
+button {
+  width: 80px;
+  height: 25px;
+  margin: 3px;
+  background-color: var(--button-bg-color);
+  color: var(--white);
+  border-radius: 15px;
+  border-width: 1px;
+  outline: none;
 }
 
 .remove-button {
   position: absolute;
   font-size: 110%;
-  top: 0;
-  color: var (--dark-blue);
+  top: 5px;
+  color: var(--dark-blue);
   right: 10px;
   display: block;
   width: 24px;
   height: 24px;
   border: none;
+  outline: none;
   background: transparent;
 }
 .remove-button:hover {
   color: var(--crimson);
 }
 
-.container:hover {
-  box-shadow: 0 0 5px var(--dark-blue);
-  border: 2px solid var(--dark-blue);
+.add-button {
+  width: 30px;
 }
-
 .column {
   position: absolute;
   width: 30px;
-  background-color: var(--light-blue);
+  background-color: var(--button-bg-color);
   margin: 10px;
-  margin-top: 15px;
+  margin-top: 30px;
   transition-property: left;
   transition-duration: 0.2s;
   text-align: center;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   border: solid 2px var(--dark-blue);
-}
-
-header > button {
-  width: 80px;
-  height: 25px;
-  margin: 5px;
-  background-color: var(--button-bg-color);
-  color: var(--white);
-  border-radius: 15px;
 }
 
 .text-box {

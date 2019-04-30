@@ -1,5 +1,5 @@
 /* Entry point */
 import './css/stl.css';
-import drawComponent from './components/main';
+import addNewSorterer from './components/main';
 
-drawComponent(document.body);
+addNewSorterer(document.body);
