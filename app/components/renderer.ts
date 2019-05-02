@@ -5,12 +5,12 @@ export default class Renderer {
   private index: number[];
   private container: HTMLDivElement;
 
-  public constructor(valuesArr: number[]) {
-    this.container = document.createElement('div');
-    const arr = [...valuesArr];
+  public constructor(options: RendererOptions) {
+    const { valuesArr: arr, columnsContainer } = options;
+
+    this.container = columnsContainer;
     const COLUMN_HEIGHT = 15;
     this.curValuesArr = [...arr];
-
     this.index = [];
     this.index = arr.map((_, i): number => i);
 
@@ -20,19 +20,10 @@ export default class Renderer {
       newColumn.className = 'column';
       newColumn.style.height = `${this.curValuesArr[i] * COLUMN_HEIGHT}px`;
       newColumn.style.left = Renderer.getColumnOffset(i);
-
       newColumn.innerText = this.curValuesArr[i].toString();
 
-      this.container.appendChild(newColumn);
+      columnsContainer.appendChild(newColumn);
     }
-
-    const label = `Original state: ${this.curValuesArr.join(' ')}`;
-    const labelBox = document.createElement('legend');
-    labelBox.classList.add('label');
-    labelBox.innerText = label;
-    this.container.appendChild(labelBox);
-
-    //columnsContainer.appendChild(this.container);
   }
 
   private static COLUM_SPACING = 38;

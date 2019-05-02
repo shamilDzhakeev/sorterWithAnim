@@ -6,5 +6,5 @@ export interface HeaderOptions {
 
 export interface RendererOptions {
   valuesArr: number[];
-  blockToDraw: HTMLElement;
+  columnsContainer: HTMLDivElement;
 }

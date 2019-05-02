@@ -4,32 +4,32 @@ import { drawEmptyTemplate } from './header';
 import { getDataSource } from './dataSources';
 
 function addNewSorterer(blockToDraw: HTMLElement): void {
-  const valuesArr = [1, 5, 2, 4];
-  const collect = new Map();
+  //источник
+  const dataSource = getDataSource('server');
+  const valuesArr = dataSource.getData();
   const sorter = new Sorter(valuesArr);
-
-  const renderer = new Renderer(valuesArr);
+  let renderer: Renderer;
 
   function doNextStep(): void {
-    collect.get(sorter).updateRender(sorter.doStepUp());
+    renderer.updateRender(sorter.doStepUp());
   }
 
   function doStepBack(): void {
-    collect.get(sorter).updateRender(sorter.doStepBack());
+    renderer.updateRender(sorter.doStepBack());
   }
 
-  const options = {
+  const templateOpts = {
     onDownButtonClick: doStepBack,
     onUpButtonClick: doNextStep,
     destenationNode: blockToDraw,
   };
+  const columnsContainer = drawEmptyTemplate(templateOpts);
 
-  drawEmptyTemplate(options);
-
-  //источник доделать
-  const dataSource = getDataSource('string');
-
-  collect.set(sorter, renderer);
+  const rendererOpts = {
+    valuesArr,
+    columnsContainer,
+  };
+  renderer = new Renderer(rendererOpts);
 }
 
 export default addNewSorterer;
