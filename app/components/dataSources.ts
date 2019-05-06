@@ -15,7 +15,19 @@ class DataSourceInput {
 
 class DataSourceServer {
   public getData(): number[] {
-    const req = new XMLHttpRequest();
+    fetch('http://localhost:1234/array')
+      .then(response => {
+        if (response.status !== 200) {
+          return Promise.reject(new Error(response.statusText));
+        } else {
+          return Promise.resolve(response);
+        }
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.error('Ошибка: ', err));
+
+    /*const req = new XMLHttpRequest();
     req.open('GET', 'http://localhost:1234/array', false);
     req.send();
 
@@ -25,7 +37,9 @@ class DataSourceServer {
       console.log('Некорректные данные с сервера.');
       return [];
     }
-    return responseObj.result;
+    return responseObj.result; */
+
+    return [1];
   }
 }
 
