@@ -1,10 +1,13 @@
-export interface HeaderOptions {
+/* export interface HeaderOptions {
   onDownButtonClick: () => void;
   onUpButtonClick: () => void;
   destenationNode: HTMLElement;
 }
 
 export interface RendererOptions {
-  valuesArr: number[];
+  arr: number[];
   columnsContainer: HTMLDivElement;
 }
+ */
+
+//пока нет необходимости..

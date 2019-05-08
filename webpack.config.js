@@ -12,7 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
     port: 8085,

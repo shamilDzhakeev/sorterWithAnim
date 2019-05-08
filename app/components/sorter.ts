@@ -1,4 +1,4 @@
-export default class Sorter {
+export default class Sorterer {
   private sortStates: number[][];
 
   private curStateIndex: number = 0;

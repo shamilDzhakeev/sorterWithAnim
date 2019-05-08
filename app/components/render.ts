@@ -1,15 +1,12 @@
-import { RendererOptions } from './types';
-
 export default class Renderer {
   private curValuesArr: number[];
   private index: number[];
   private container: HTMLDivElement;
 
-  public constructor(options: RendererOptions) {
-    const { valuesArr: arr, columnsContainer } = options;
+  public constructor(arr: number[], columnsContainer) {
+    const COLUMN_HEIGHT = 15;
 
     this.container = columnsContainer;
-    const COLUMN_HEIGHT = 15;
     this.curValuesArr = [...arr];
     this.index = [];
     this.index = arr.map((_, i): number => i);
@@ -26,7 +23,7 @@ export default class Renderer {
     }
   }
 
-  private static COLUM_SPACING = 38;
+  private static COLUM_SPACING = 30;
 
   private static getColumnOffset(index: number): string {
     return `${index * Renderer.COLUM_SPACING}px`;
