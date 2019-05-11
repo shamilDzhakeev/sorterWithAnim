@@ -3,10 +3,12 @@
   --dark-blue: #2c3e50;
   --white: white;
   --crimson: crimson;
+  --gray: gray;
 }
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
 }
 
 .sorterer-main-container {
@@ -26,7 +28,7 @@ body {
 }
 
 button {
-  width: 80px;
+  width: 90px;
   height: 25px;
   margin: 3px;
   background-color: var(--dark-blue);
@@ -34,6 +36,10 @@ button {
   border-radius: 15px;
   border-width: 1px;
   outline: none;
+}
+
+.down-button {
+  display: inline-block;
 }
 
 .remove-button {
@@ -54,7 +60,9 @@ button {
 }
 
 .add-button {
-  width: 30px;
+  width: 186px;
+  height: 30px;
+  display: block;
 }
 .column {
   position: absolute;
@@ -71,14 +79,18 @@ button {
 }
 
 input {
-  display: block;
-  padding: 2px;
-  margin: 5px;
+  display: inline;
+  width: 300px;
+  height: 17px;
+  padding: 3px;
+  margin: 3px;
+  border: 1px solid var(--gray);
 }
 
 select {
   margin: 3px;
   padding: 3px;
+  border: 1px solid var(--gray);
 }
 
 .label {

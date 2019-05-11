@@ -1,36 +1,33 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import getRemoveButton from './close-button';
-import { getNumericArr } from './add-button';
-
-export const columnsContainer = document.createElement('div');
 
 const sortererBlock = document.createElement('div');
+const columnsContainer = document.createElement('div');
 const upButton = document.createElement('button');
 const downButton = document.createElement('button');
 const addButton = document.createElement('button');
 const select = document.createElement('select');
-const input = document.createElement('input');
+export const input = document.createElement('input');
 
 sortererBlock.classList.add('sorterer-main-container');
 addButton.classList.add('add-button');
 columnsContainer.classList.add('container');
+downButton.classList.add('down-button');
+upButton.classList.add('up-button');
 
-/* downButton.onclick = down;
-upButton.onclick = up; */
+downButton.innerText = 'Шаг назад';
+upButton.innerText = 'Шаг вперед';
+addButton.innerText = 'Отрисовать';
 
-downButton.innerText = 'Step back';
-upButton.innerText = 'Sort';
-addButton.innerText = '+';
+input.placeholder = 'Введите значение и нажмите "Отрисовать"';
 
-input.placeholder = 'Введите значение';
-
-addButton.onclick = getNumericArr;
-
-sortererBlock.appendChild(downButton);
-sortererBlock.appendChild(upButton);
-sortererBlock.appendChild(addButton);
+sortererBlock.appendChild(document.createTextNode('Источник: '));
 sortererBlock.appendChild(select);
 sortererBlock.appendChild(input);
+sortererBlock.appendChild(addButton);
+sortererBlock.appendChild(downButton);
+sortererBlock.appendChild(upButton);
+
 sortererBlock.appendChild(columnsContainer);
 sortererBlock.appendChild(getRemoveButton());
 
@@ -40,11 +37,10 @@ select.addEventListener('change', () => {
   } else {
     input.disabled = false;
   }
-  console.log(select.selectedIndex);
 });
 
 const sources = {
-  input: 'Ввести значение ручками',
+  input: 'Ввести значение вручную',
   server: 'Получить значение от сервера',
 };
 
@@ -54,6 +50,7 @@ for (const key in sources) {
   select.append(option);
 }
 
-export function drawEmptyTemplate(destinationNode): void {
+export default function drawEmptyTemplate(destinationNode) {
   destinationNode.appendChild(sortererBlock);
+  return { columnsContainer, upButton, downButton, addButton, select, input };
 }
