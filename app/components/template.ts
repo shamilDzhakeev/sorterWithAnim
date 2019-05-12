@@ -27,17 +27,21 @@ sortererBlock.appendChild(input);
 sortererBlock.appendChild(addButton);
 sortererBlock.appendChild(downButton);
 sortererBlock.appendChild(upButton);
-
 sortererBlock.appendChild(columnsContainer);
 sortererBlock.appendChild(getRemoveButton());
 
-select.addEventListener('change', () => {
-  if (select.selectedIndex === 1) {
-    input.disabled = true;
-  } else {
-    input.disabled = false;
+select.addEventListener(
+  'change',
+  (): void => {
+    if (select.selectedIndex === 1) {
+      addButton.innerText = 'Загрузить и отрисовать';
+      input.disabled = true;
+    } else {
+      addButton.innerText = 'Отрисовать';
+      input.disabled = false;
+    }
   }
-});
+);
 
 const sources = {
   input: 'Ввести значение вручную',
@@ -50,7 +54,7 @@ for (const key in sources) {
   select.append(option);
 }
 
-export default function drawEmptyTemplate(destinationNode) {
+export default function drawEmptyTemplate(destinationNode: HTMLElement) {
   destinationNode.appendChild(sortererBlock);
   return { columnsContainer, upButton, downButton, addButton, select, input };
 }

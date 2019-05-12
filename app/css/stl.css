@@ -25,6 +25,7 @@ body {
   width: auto;
   height: 190px;
   border-top: #2c3e50 2px solid;
+  margin-top: 5px;
 }
 
 button {
@@ -79,7 +80,6 @@ button {
 }
 
 input {
-  display: inline;
   width: 300px;
   height: 17px;
   padding: 3px;
@@ -93,10 +93,21 @@ select {
   border: 1px solid var(--gray);
 }
 
-.label {
+.modal-window {
   position: absolute;
-  font-size: 110%;
-  top: 1%;
-  color: var (--dark-blue);
-  left: 10px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* исправить */
+  width: 295px;
+  height: 100px;
+  border: 2px solid var(--dark-blue);
+  background-color: var(--white);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.center-block-element {
+  block-size: 25px;
+  display: block;
+  margin: 0 auto;
 }

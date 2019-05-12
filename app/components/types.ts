@@ -1,13 +1,8 @@
-/* export interface HeaderOptions {
-  onDownButtonClick: () => void;
-  onUpButtonClick: () => void;
-  destenationNode: HTMLElement;
-}
-
-export interface RendererOptions {
-  arr: number[];
+export interface Elements {
   columnsContainer: HTMLDivElement;
+  upButton: HTMLButtonElement;
+  downButton: HTMLButtonElement;
+  addButton: HTMLButtonElement;
+  select: HTMLSelectElement;
+  input: HTMLInputElement;
 }
- */
-
-//пока нет необходимости..

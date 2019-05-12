@@ -16,6 +16,7 @@
   },
   "rules": {
     "@typescript-eslint/ban-ts-ignore": "error",
+    "no-console": "warn",
     "import/no-unresolved": "off"
   }
 }

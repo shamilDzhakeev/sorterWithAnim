@@ -22,7 +22,7 @@ const libs = {
 };
 
 export default function getDataSource(
-  type: string
+  type: number
 ): DataSourceInput | DataSourceServer {
   const DataSource = libs[type];
   return new DataSource();
