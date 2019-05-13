@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { input } from './template';
+import { input } from './main';
 
 class DataSourceInput {
   public async getData() {
@@ -22,7 +22,7 @@ const libs = {
 };
 
 export default function getDataSource(
-  type: number
+  type: number,
 ): DataSourceInput | DataSourceServer {
   const DataSource = libs[type];
   return new DataSource();
