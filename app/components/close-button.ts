@@ -1,13 +1,13 @@
-export default function getRemoveButton(): HTMLButtonElement {
-  const removeButton = document.createElement('button');
-  removeButton.classList.add('remove-button');
-  removeButton.innerHTML = '✖';
+export default function createCloseButton(): HTMLButtonElement {
+  const closeButton = document.createElement('button');
+  closeButton.classList.add('close-button');
+  closeButton.innerHTML = '✖';
 
   function removeNode(): void {
     const elementToRemove = this.parentNode;
     elementToRemove.remove();
   }
 
-  removeButton.addEventListener('click', removeNode);
-  return removeButton;
+  closeButton.addEventListener('click', removeNode);
+  return closeButton;
 }

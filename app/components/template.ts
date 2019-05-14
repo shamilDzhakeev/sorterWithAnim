@@ -1,5 +1,5 @@
 import { Elements } from './types';
-import getRemoveButton from './close-button';
+import createCloseButton from './close-button';
 
 export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   const input = document.createElement('input');
@@ -29,7 +29,7 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   sortererBlock.appendChild(downButton);
   sortererBlock.appendChild(upButton);
   sortererBlock.appendChild(columnsContainer);
-  sortererBlock.appendChild(getRemoveButton());
+  sortererBlock.appendChild(createCloseButton());
 
   select.addEventListener(
     'change',

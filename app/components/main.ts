@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Sorterer from './sorter';
 import Renderer from './render';
 import drawEmptyTemplate from './template';
@@ -14,7 +13,7 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
   let renderer: Renderer;
   let elements: Elements;
 
-  async function request() {
+  async function request(): Promise<void> {
     const source = getDataSource(elements.select.selectedIndex);
     const waitMsg = createModalWindow('Загрузка данных, пожалуйста подождите.');
     elements.columnsContainer.innerHTML = '';
