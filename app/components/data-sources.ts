@@ -1,7 +1,5 @@
-import { input } from './main';
-
 class DataSourceInput {
-  public async getData(): Promise<[]> {
+  public async getData(input: HTMLInputElement): Promise<number[]> {
     const valuesArr = input.value ? input.value.split('').map(Number) : [];
     return valuesArr;
   }

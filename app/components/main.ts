@@ -6,12 +6,11 @@ import createLoadingWindow from './data-loading-window';
 import createErrorWindow from './error-msg-window';
 import { Elements } from './types';
 
-export let input;
-
 function addNewSorterer(blockToDraw: HTMLElement): void {
   let sorterer: Sorterer;
   let renderer: Renderer;
   let elements: Elements;
+  let input: HTMLInputElement;
 
   async function request(): Promise<void> {
     const source = getDataSource(elements.select.selectedIndex);
@@ -21,7 +20,7 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
     elements.columnsContainer.innerHTML = '';
     elements.columnsContainer.appendChild(waitMsg);
     try {
-      const data = await source.getData();
+      const data = await source.getData(input);
       waitMsg.remove();
       sorterer = new Sorterer(data);
       renderer = new Renderer(data, elements.columnsContainer);
