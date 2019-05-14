@@ -2,8 +2,8 @@ import Sorterer from './sorter';
 import Renderer from './render';
 import drawEmptyTemplate from './template';
 import getDataSource from './data-sources';
-import createModalWindow from './data-loading-window';
-import getErrorWindow from './error-msg-window';
+import createLoadingWindow from './data-loading-window';
+import createErrorWindow from './error-msg-window';
 import { Elements } from './types';
 
 export let input;
@@ -15,7 +15,9 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
 
   async function request(): Promise<void> {
     const source = getDataSource(elements.select.selectedIndex);
-    const waitMsg = createModalWindow('Загрузка данных, пожалуйста подождите.');
+    const waitMsg = createLoadingWindow(
+      'Загрузка данных, пожалуйста подождите.',
+    );
     elements.columnsContainer.innerHTML = '';
     elements.columnsContainer.appendChild(waitMsg);
     try {
@@ -25,7 +27,7 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
       renderer = new Renderer(data, elements.columnsContainer);
     } catch (err) {
       waitMsg.remove();
-      const errorMsg = getErrorWindow(
+      const errorMsg = createErrorWindow(
         'Ошибка загрузки данных. Повоторите попытку позже.',
       );
       elements.columnsContainer.appendChild(errorMsg);
