@@ -2,7 +2,7 @@ import Sorterer from './sorter';
 import Renderer from './render';
 import drawEmptyTemplate from './template';
 import getDataSource from './data-sources';
-import createModalWindow from './modal-window';
+import createModalWindow from './data-loading-window';
 import getErrorWindow from './error-msg-window';
 import { Elements } from './types';
 
@@ -29,6 +29,7 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
         'Ошибка загрузки данных. Повоторите попытку позже.',
       );
       elements.columnsContainer.appendChild(errorMsg);
+      // eslint-disable-next-line no-console
       console.error(err);
     }
   }

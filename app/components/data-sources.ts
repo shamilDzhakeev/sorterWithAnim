@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { input } from './main';
 
 class DataSourceInput {
-  public async getData() {
+  public async getData(): Promise<[]> {
     const valuesArr = input.value ? input.value.split('').map(Number) : [];
     return valuesArr;
   }
 }
 
 class DataSourceServer {
-  public async getData() {
+  public async getData(): Promise<[]> {
     const resp = await fetch('http://localhost:1234/array');
     const data = await resp.json();
     return data.result;

@@ -1,15 +1,15 @@
-export default function getErrorWindow(msg: string): HTMLDivElement {
+export default function createErrorWindow(msg: string): HTMLDivElement {
   const errWindow = document.createElement('div');
-  const measge = document.createElement('p');
+  const message = document.createElement('p');
   const okButton = document.createElement('button');
 
   okButton.classList.add('center-block-element');
   okButton.innerText = 'Ok';
 
-  measge.innerText = msg;
+  message.innerText = msg;
   errWindow.classList.add('modal-window');
 
-  errWindow.appendChild(measge);
+  errWindow.appendChild(message);
   errWindow.appendChild(okButton);
 
   function removeNode(): void {
