@@ -56,5 +56,13 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   }
 
   destNode.appendChild(sortererBlock);
-  return { columnsContainer, upButton, downButton, addButton, select, input };
+  return {
+    sortererBlock,
+    columnsContainer,
+    upButton,
+    downButton,
+    addButton,
+    select,
+    input,
+  };
 }

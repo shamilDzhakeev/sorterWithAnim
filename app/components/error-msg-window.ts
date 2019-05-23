@@ -1,21 +1,26 @@
 export default function createErrorWindow(msg: string): HTMLDivElement {
-  const errWindow = document.createElement('div');
+  const modal = document.createElement('div');
+  const content = document.createElement('div');
   const message = document.createElement('p');
   const okButton = document.createElement('button');
 
+  function removeNode(): void {
+    const elementToRemove = document.querySelector('.modal') as HTMLDivElement;
+    elementToRemove.remove();
+  }
+
+  okButton.addEventListener('click', removeNode);
+
+  modal.classList.add('modal');
   okButton.classList.add('center-block-element');
   okButton.innerText = 'Ok';
 
   message.innerText = msg;
-  errWindow.classList.add('modal-window');
+  content.classList.add('modal-content');
 
-  errWindow.appendChild(message);
-  errWindow.appendChild(okButton);
+  content.appendChild(message);
+  content.appendChild(okButton);
+  modal.appendChild(content);
 
-  function removeNode(): void {
-    const elementToRemove = this.parentNode;
-    elementToRemove.remove();
-  }
-  okButton.addEventListener('click', removeNode);
-  return errWindow;
+  return modal;
 }

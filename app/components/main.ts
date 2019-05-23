@@ -29,7 +29,7 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
       const errorMsg = createErrorWindow(
         'Ошибка загрузки данных. Повоторите попытку позже.',
       );
-      elements.columnsContainer.appendChild(errorMsg);
+      elements.sortererBlock.appendChild(errorMsg);
       // eslint-disable-next-line no-console
       console.error(err);
     }

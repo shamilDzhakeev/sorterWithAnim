@@ -1,4 +1,5 @@
 export interface Elements {
+  sortererBlock: HTMLDivElement;
   columnsContainer: HTMLDivElement;
   upButton: HTMLButtonElement;
   downButton: HTMLButtonElement;
