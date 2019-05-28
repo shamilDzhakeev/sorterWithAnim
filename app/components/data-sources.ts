@@ -8,8 +8,12 @@ class DataSourceInput {
 class DataSourceServer {
   public async getData(): Promise<[]> {
     const resp = await fetch('http://localhost:1234/array');
-    const data = await resp.json();
-    return data.result;
+    if (resp.ok) {
+      const data = await resp.json();
+      return data.result;
+    } else {
+      throw new Error('Ошибка получения данных с сервера.');
+    }
   }
 }
 

@@ -5,8 +5,11 @@ import getDataSource from './data-sources';
 import createLoadingWindow from './data-loading-window';
 import createErrorWindow from './error-msg-window';
 import { Elements } from './types';
+import { checkData } from './data-checker';
 
 function addNewSorterer(blockToDraw: HTMLElement): void {
+  const waitMsg = 'Загрузка данных, пожалуйста подождите.';
+  const incorrectData = 'Данные некорректны!';
   let sorterer: Sorterer;
   let renderer: Renderer;
   let elements: Elements;
@@ -14,21 +17,23 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
 
   async function request(): Promise<void> {
     const source = getDataSource(elements.select.selectedIndex);
-    const waitMsg = createLoadingWindow(
-      'Загрузка данных, пожалуйста подождите.',
-    );
+    const waitMsgWindow = createLoadingWindow(waitMsg);
     elements.columnsContainer.innerHTML = '';
-    elements.columnsContainer.appendChild(waitMsg);
+    elements.columnsContainer.appendChild(waitMsgWindow);
     try {
       const data = await source.getData(input);
-      waitMsg.remove();
+
+      const isDataValid = checkData(data);
+      if (!isDataValid) {
+        throw new SyntaxError(incorrectData);
+      }
+
+      waitMsgWindow.remove();
       sorterer = new Sorterer(data);
       renderer = new Renderer(data, elements.columnsContainer);
     } catch (err) {
-      waitMsg.remove();
-      const errorMsg = createErrorWindow(
-        'Ошибка загрузки данных. Повоторите попытку позже.',
-      );
+      waitMsgWindow.remove();
+      const errorMsg = createErrorWindow(err.message);
       elements.sortererBlock.appendChild(errorMsg);
       // eslint-disable-next-line no-console
       console.error(err);
