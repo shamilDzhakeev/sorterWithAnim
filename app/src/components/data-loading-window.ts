@@ -1,4 +1,4 @@
-import loading from './imgs/load.gif';
+import loading from '../imgs/load.gif';
 
 export default function createLoadingWindow(msg): HTMLDivElement {
   const modalWindow = document.createElement('div');

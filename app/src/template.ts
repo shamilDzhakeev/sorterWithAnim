@@ -1,5 +1,5 @@
-import { Elements } from './types';
-import createCloseButton from './close-button';
+import { Elements } from './utils/types';
+import createCloseButton from './components/close-button';
 
 export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   const input = document.createElement('input');

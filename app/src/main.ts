@@ -1,11 +1,11 @@
-import Sorterer from './sorter';
-import Renderer from './render';
+import Sorterer from './utils/sorter';
+import Renderer from './utils/render';
 import drawEmptyTemplate from './template';
-import getDataSource from './data-sources';
-import createLoadingWindow from './data-loading-window';
-import createErrorWindow from './error-msg-window';
-import { Elements } from './types';
-import { checkData } from './data-checker';
+import getDataSource from './utils/data-sources';
+import createLoadingWindow from './components/data-loading-window';
+import createErrorWindow from './components/error-msg-window';
+import { Elements } from './utils/types';
+import { checkData } from './utils/data-checker';
 
 function addNewSorterer(blockToDraw: HTMLElement): void {
   const waitMsg = 'Загрузка данных, пожалуйста подождите.';
