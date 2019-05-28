@@ -21,6 +21,7 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   addButton.innerText = 'Отрисовать';
 
   input.placeholder = 'Введите значение и нажмите "Отрисовать"';
+  input.type = 'number';
 
   sortererBlock.appendChild(document.createTextNode('Источник: '));
   sortererBlock.appendChild(select);

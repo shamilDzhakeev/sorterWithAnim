@@ -34,7 +34,7 @@ export default class Renderer {
     const columns = this.container.getElementsByTagName('div');
 
     for (let i = 0; i < newValuesArr.length; i += 1) {
-      if (newValuesArr[i] !== +this.curValuesArr[i]) {
+      if (newValuesArr[i] !== this.curValuesArr[i]) {
         [this.index[i], this.index[i + 1]] = [this.index[i + 1], this.index[i]];
         break;
       }
