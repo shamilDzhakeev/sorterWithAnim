@@ -1,23 +1,17 @@
 import { Elements } from './utils/types';
-import createCloseButton from './components/close-button';
 
 export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   const input = document.createElement('input');
   const sortererBlock = document.createElement('div');
   const columnsContainer = document.createElement('div');
-  const upButton = document.createElement('button');
-  const downButton = document.createElement('button');
+
   const addButton = document.createElement('button');
   const select = document.createElement('select');
 
   sortererBlock.classList.add('sorterer-main-container');
   addButton.classList.add('add-button');
-  columnsContainer.classList.add('container');
-  downButton.classList.add('down-button');
-  upButton.classList.add('up-button');
+  columnsContainer.classList.add('main-container');
 
-  downButton.innerText = 'Шаг назад';
-  upButton.innerText = 'Шаг вперед';
   addButton.innerText = 'Отрисовать';
 
   input.placeholder = 'Введите значение и нажмите "Отрисовать"';
@@ -26,10 +20,7 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   sortererBlock.appendChild(select);
   sortererBlock.appendChild(input);
   sortererBlock.appendChild(addButton);
-  sortererBlock.appendChild(downButton);
-  sortererBlock.appendChild(upButton);
   sortererBlock.appendChild(columnsContainer);
-  sortererBlock.appendChild(createCloseButton());
 
   select.addEventListener(
     'change',
@@ -59,8 +50,6 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   return {
     sortererBlock,
     columnsContainer,
-    upButton,
-    downButton,
     addButton,
     select,
     input,

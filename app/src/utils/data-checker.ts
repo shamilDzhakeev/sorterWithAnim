@@ -1,4 +1,7 @@
-export const checkData = function(data: number[]): boolean {
+const checkData = function(data: number[]): boolean {
+  if (!data.length) {
+    return false;
+  }
   return data.every(
     (value): boolean => {
       if (value === null || isNaN(value)) {
@@ -8,3 +11,4 @@ export const checkData = function(data: number[]): boolean {
     },
   );
 };
+export default checkData;

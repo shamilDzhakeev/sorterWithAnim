@@ -24,11 +24,22 @@ p {
   border-radius: 5px;
 }
 
-.container {
+.main-container {
+  min-height: 50px;
+  width: auto;
+  height: auto;
+
+  margin-top: 5px;
+}
+
+.colums-container {
+  position: relative;
   width: auto;
   height: 190px;
-  border-top: #2c3e50 2px solid;
-  margin-top: 5px;
+  border: #2c3e50 2px solid;
+  border-radius: 5px;
+  margin: 10px 5px;
+  padding: 5px;
 }
 
 button {
@@ -40,10 +51,6 @@ button {
   border-radius: 15px;
   border-width: 1px;
   outline: none;
-}
-
-.down-button {
-  display: inline-block;
 }
 
 .close-button {
@@ -64,7 +71,7 @@ button {
 }
 
 .add-button {
-  width: 186px;
+  width: 180px;
   height: 30px;
   display: block;
 }
@@ -72,8 +79,8 @@ button {
   position: absolute;
   width: 25px;
   background-color: var(--light-blue);
-  margin: 10px;
-  margin-top: 20px;
+  margin: 20px;
+  margin-top: 10px;
   transition-property: left;
   transition-duration: 0.2s;
   text-align: center;
