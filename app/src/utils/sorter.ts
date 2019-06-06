@@ -3,6 +3,7 @@ export default class Sorterer {
 
   private curStateIndex: number = 0;
 
+  public totalStepsCount: number;
   public constructor(arr: number[]) {
     const targetArr = [...arr];
     this.sortStates = [];
@@ -19,6 +20,7 @@ export default class Sorterer {
         }
       }
     }
+    this.totalStepsCount = this.sortStates.length;
   }
 
   public doStepUp(): number[] {

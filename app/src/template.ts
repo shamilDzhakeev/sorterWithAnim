@@ -3,14 +3,14 @@ import { Elements } from './utils/types';
 export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   const input = document.createElement('input');
   const sortererBlock = document.createElement('div');
-  const columnsContainer = document.createElement('div');
+  const mainContainer = document.createElement('div');
 
   const addButton = document.createElement('button');
   const select = document.createElement('select');
 
   sortererBlock.classList.add('sorterer-main-container');
   addButton.classList.add('add-button');
-  columnsContainer.classList.add('main-container');
+  mainContainer.classList.add('main-container');
 
   addButton.innerText = 'Отрисовать';
 
@@ -20,7 +20,7 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   sortererBlock.appendChild(select);
   sortererBlock.appendChild(input);
   sortererBlock.appendChild(addButton);
-  sortererBlock.appendChild(columnsContainer);
+  sortererBlock.appendChild(mainContainer);
 
   select.addEventListener(
     'change',
@@ -49,7 +49,7 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   destNode.appendChild(sortererBlock);
   return {
     sortererBlock,
-    columnsContainer,
+    mainContainer,
     addButton,
     select,
     input,

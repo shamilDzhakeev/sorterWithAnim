@@ -31,7 +31,9 @@ export default class Renderer {
   }
 
   public updateRender(newValuesArr: number[]): void {
-    const columns = this.container.getElementsByTagName('div');
+    const columns = this.container.getElementsByClassName(
+      'column',
+    ) as HTMLCollectionOf<HTMLDivElement>;
 
     for (let i = 0; i < newValuesArr.length; i += 1) {
       if (newValuesArr[i] !== this.curValuesArr[i]) {
@@ -42,7 +44,7 @@ export default class Renderer {
 
     Array.prototype.forEach.call(
       columns,
-      (_, i): void => {
+      (_: HTMLDivElement, i: number): void => {
         columns[this.index[i]].style.left = Renderer.getColumnOffset(i);
       },
     );
