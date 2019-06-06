@@ -7,7 +7,7 @@ class DataSourceInput {
 }
 
 class DataSourceServer {
-  public async getData(): Promise<[]> {
+  public async getData(): Promise<number[]> {
     const resp = await fetch('http://localhost:1234/array');
     if (resp.ok) {
       const data = await resp.json();
