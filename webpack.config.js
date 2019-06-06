@@ -12,7 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
     port: 8085,
@@ -36,8 +36,22 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.(jpe?g|png|svg|gif)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
+      },
     ],
   },
 
-  plugins: [new HtmlWebpackPlugin({ title: 'Sort' }), new CleanWebpackPlugin()],
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Sort',
+      template: './app/template/index.html',
+      inject: 'body',
+    }),
+    new CleanWebpackPlugin(),
+  ],
 };
