@@ -7,20 +7,6 @@ export default class Sorterer {
     this.indexes = [];
   }
 
-  public doStepBack(): number[] {
-    for (let i = 0; i < this.arr.length; i++) {
-      if (this.indexes.length !== 0) {
-        [this.arr[this.indexes[0]], this.arr[this.indexes[0] + 1]] = [
-          this.arr[this.indexes[0] + 1],
-          this.arr[this.indexes[0]],
-        ];
-        this.indexes.shift();
-        return this.arr;
-      }
-    }
-    return this.arr;
-  }
-
   public doStepUp(): number[] {
     let flag = true;
     while (flag) {
@@ -32,6 +18,20 @@ export default class Sorterer {
           flag = true;
           return this.arr;
         }
+      }
+    }
+    return this.arr;
+  }
+
+  public doStepBack(): number[] {
+    for (let i = 0; i < this.arr.length; i++) {
+      if (this.indexes.length !== 0) {
+        [this.arr[this.indexes[0]], this.arr[this.indexes[0] + 1]] = [
+          this.arr[this.indexes[0] + 1],
+          this.arr[this.indexes[0]],
+        ];
+        this.indexes.shift();
+        return this.arr;
       }
     }
     return this.arr;

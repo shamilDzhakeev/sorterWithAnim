@@ -46,20 +46,14 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
       waitMsgWindow.remove();
       const sorterer = new Sorterer(data);
       const renderer = new Renderer(data, columnsContainer);
-      const progressLine = new ProgressLine(
-        columnsContainer,
-        50, // захардкожено
-      );
+
       mainContainer.appendChild(columnsContainer);
 
       sortUpBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepUp());
-
-        progressLine.stepUp();
       };
       sortDownBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepBack());
-        progressLine.stepDown();
       };
     } catch (err) {
       waitMsgWindow.remove();
