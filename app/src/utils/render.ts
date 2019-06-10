@@ -49,6 +49,6 @@ export default class Renderer {
       },
     );
 
-    this.curValuesArr = newValuesArr;
+    this.curValuesArr = [...newValuesArr];
   }
 }

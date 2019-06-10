@@ -1,41 +1,39 @@
 export default class Sorterer {
-  private sortStates: number[][];
+  private arr: number[];
+  private indexes: number[];
 
-  private curStateIndex: number = 0;
-
-  public totalStepsCount: number;
-  public constructor(arr: number[]) {
-    const targetArr = [...arr];
-    this.sortStates = [];
-    this.sortStates.push([...arr]);
-
-    let exitFlag = true;
-    while (exitFlag) {
-      exitFlag = false;
-      for (let i = 0; i < targetArr.length - 1; i += 1) {
-        if (targetArr[i] > targetArr[i + 1]) {
-          [targetArr[i], targetArr[i + 1]] = [targetArr[i + 1], targetArr[i]];
-          this.sortStates.push([...targetArr]);
-          exitFlag = true;
-        }
-      }
-    }
-    this.totalStepsCount = this.sortStates.length;
-  }
-
-  public doStepUp(): number[] {
-    if (this.curStateIndex < this.sortStates.length - 1) {
-      this.curStateIndex += 1;
-      return this.sortStates[this.curStateIndex];
-    }
-    return this.sortStates[this.curStateIndex];
+  public constructor(targetArr: number[]) {
+    this.arr = [...targetArr];
+    this.indexes = [];
   }
 
   public doStepBack(): number[] {
-    if (this.curStateIndex > 0) {
-      this.curStateIndex -= 1;
-      return this.sortStates[this.curStateIndex];
+    for (let i = 0; i < this.arr.length; i++) {
+      if (this.indexes.length !== 0) {
+        [this.arr[this.indexes[0]], this.arr[this.indexes[0] + 1]] = [
+          this.arr[this.indexes[0] + 1],
+          this.arr[this.indexes[0]],
+        ];
+        this.indexes.shift();
+        return this.arr;
+      }
     }
-    return this.sortStates[this.curStateIndex];
+    return this.arr;
+  }
+
+  public doStepUp(): number[] {
+    let flag = true;
+    while (flag) {
+      flag = false;
+      for (let i = 0; i < this.arr.length - 1; i++) {
+        if (this.arr[i] > this.arr[i + 1]) {
+          [this.arr[i], this.arr[i + 1]] = [this.arr[i + 1], this.arr[i]];
+          this.indexes.unshift(i);
+          flag = true;
+          return this.arr;
+        }
+      }
+    }
+    return this.arr;
   }
 }
