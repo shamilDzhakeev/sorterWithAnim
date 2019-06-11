@@ -1,10 +1,11 @@
 import { Elements } from './utils/types';
+import create from './utils/create-element';
 
 export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   const input = document.createElement('input');
   const sortererBlock = document.createElement('div');
   const mainContainer = document.createElement('div');
-
+  const getDataBtn = document.createElement('button');
   const addButton = document.createElement('button');
   const select = document.createElement('select');
 
@@ -15,7 +16,6 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   addButton.innerText = 'Отрисовать';
 
   input.placeholder = 'Введите значение и нажмите "Отрисовать"';
-
   sortererBlock.appendChild(document.createTextNode('Источник: '));
   sortererBlock.appendChild(select);
   sortererBlock.appendChild(input);

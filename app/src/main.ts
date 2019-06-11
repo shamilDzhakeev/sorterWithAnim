@@ -8,7 +8,7 @@ import createErrorWindow from './components/error-msg-window';
 import createCloseButton from './components/close-button';
 import checkData from './utils/data-checker';
 
-function addNewSorterer(blockToDraw: HTMLElement): void {
+async function addNewSorterer(blockToDraw: HTMLElement): Promise<void> {
   const waitMsg = 'Загрузка данных, пожалуйста подождите.';
   const incorrectData = 'Данные некорректны!';
 
@@ -20,28 +20,35 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
     input,
   } = drawEmptyTemplate(blockToDraw);
 
-  async function renderContainer(): Promise<void> {
+  async function getDataFromSource(): Promise<number[]> {
+    const source = getDataSource(select.selectedIndex);
+    try {
+      const data = await source.getData(input);
+
+      if (!checkData(data)) {
+        throw new Error(incorrectData);
+      }
+      return data;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  async function renderData(): Promise<void> {
     const columnsContainer = document.createElement('div');
     const sortUpBtn = document.createElement('button');
     const sortDownBtn = document.createElement('button');
     const closeBtn = createCloseButton();
     sortUpBtn.innerText = '=>';
     sortDownBtn.innerText = '<=';
-
     columnsContainer.append(sortDownBtn, sortUpBtn, closeBtn);
     columnsContainer.classList.add('colums-container');
 
-    const source = getDataSource(select.selectedIndex);
     const waitMsgWindow = createLoadingWindow(waitMsg);
-
     mainContainer.appendChild(waitMsgWindow);
-    try {
-      const data = await source.getData(input);
-      const isDataValid = checkData(data);
 
-      if (!isDataValid) {
-        throw new Error(incorrectData);
-      }
+    try {
+      const data = await getDataFromSource();
 
       waitMsgWindow.remove();
       const sorterer = new Sorterer(data);
@@ -50,15 +57,10 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
       mainContainer.appendChild(columnsContainer);
 
       sortUpBtn.onclick = (): void => {
-        const state = sorterer.doStepUp();
-        //console.log(state);
-        renderer.updateRender(state);
+        renderer.updateRender(sorterer.doStepUp());
       };
       sortDownBtn.onclick = (): void => {
-        const state = sorterer.doStepBack();
-        //console.log(state);
-
-        renderer.updateRender(state);
+        renderer.updateRender(sorterer.doStepBack());
       };
     } catch (err) {
       waitMsgWindow.remove();
@@ -69,7 +71,7 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
     }
   }
 
-  addButton.onclick = renderContainer;
+  addButton.onclick = renderData;
 }
 
 export default addNewSorterer;

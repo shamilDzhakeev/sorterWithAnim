@@ -18,7 +18,7 @@ class DataSourceServer {
   }
 }
 
-const libs = {
+const sources = {
   0: DataSourceInput,
   1: DataSourceServer,
 };
@@ -26,6 +26,6 @@ const libs = {
 export default function getDataSource(
   type: number,
 ): DataSourceInput | DataSourceServer {
-  const DataSource = libs[type];
+  const DataSource = sources[type];
   return new DataSource();
 }
