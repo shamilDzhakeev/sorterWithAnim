@@ -1,6 +1,6 @@
 import Sorterer from './utils/sorter';
 import Renderer from './utils/render';
-import ProgressLine from './components/progress-line';
+//import ProgressLine from './components/progress-line';
 import drawEmptyTemplate from './template';
 import getDataSource from './utils/data-sources';
 import createLoadingWindow from './components/data-loading-window';
@@ -50,10 +50,15 @@ function addNewSorterer(blockToDraw: HTMLElement): void {
       mainContainer.appendChild(columnsContainer);
 
       sortUpBtn.onclick = (): void => {
-        renderer.updateRender(sorterer.doStepUp());
+        const state = sorterer.doStepUp();
+        //console.log(state);
+        renderer.updateRender(state);
       };
       sortDownBtn.onclick = (): void => {
-        renderer.updateRender(sorterer.doStepBack());
+        const state = sorterer.doStepBack();
+        //console.log(state);
+
+        renderer.updateRender(state);
       };
     } catch (err) {
       waitMsgWindow.remove();
