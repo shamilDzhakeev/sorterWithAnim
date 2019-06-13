@@ -1,35 +1,46 @@
 import { Elements } from './utils/types';
 import create from './utils/create-element';
 
-export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
-  const input = document.createElement('input');
-  const sortererBlock = document.createElement('div');
-  const mainContainer = document.createElement('div');
-  const getDataBtn = document.createElement('button');
-  const addButton = document.createElement('button');
-  const select = document.createElement('select');
-
-  sortererBlock.classList.add('sorterer-main-container');
-  addButton.classList.add('add-button');
-  mainContainer.classList.add('main-container');
-
-  addButton.innerText = 'Отрисовать';
-
-  input.placeholder = 'Введите значение и нажмите "Отрисовать"';
-  sortererBlock.appendChild(document.createTextNode('Источник: '));
-  sortererBlock.appendChild(select);
-  sortererBlock.appendChild(input);
-  sortererBlock.appendChild(addButton);
-  sortererBlock.appendChild(mainContainer);
+export default function drawTmpl(destNode: HTMLElement): Elements {
+  const input = create<HTMLInputElement>('input', {
+    placeholder: 'Введите значение и нажмите "Отрисовать"',
+  });
+  const mainCont = create<HTMLDivElement>('div', {
+    className: 'main-container',
+  });
+  const getDataBtn = create<HTMLButtonElement>('button', {
+    className: 'get-data-button',
+    innerText: '+',
+  });
+  const renderBtn = create<HTMLButtonElement>('button', {
+    className: 'add-button',
+    innerText: 'Отрисовать',
+  });
+  const select = create<HTMLSelectElement>('select');
+  const br = document.createElement('br');
+  const sortBox = create<HTMLDivElement>(
+    'div',
+    { className: 'sorterer-main-container' },
+    'Источник: ',
+    select,
+    getDataBtn,
+    br,
+    'Данные: ',
+    input,
+    renderBtn,
+    mainCont,
+  );
 
   select.addEventListener(
     'change',
     (): void => {
       if (select.selectedIndex === 1) {
-        addButton.innerText = 'Загрузить и отрисовать';
+        getDataBtn.style.display = 'inline-block';
+        input.placeholder = 'Для получения данных нажмите кнопку "+"';
         input.disabled = true;
       } else {
-        addButton.innerText = 'Отрисовать';
+        getDataBtn.style.display = 'none';
+        input.placeholder = 'Введите значение и нажмите "Отрисовать"';
         input.disabled = false;
       }
     },
@@ -41,16 +52,16 @@ export default function drawEmptyTemplate(destNode: HTMLElement): Elements {
   };
 
   for (const key in sources) {
-    const option = document.createElement('option');
-    option.innerText = sources[key];
+    const option = create('option', { innerText: sources[key] });
     select.append(option);
   }
 
-  destNode.appendChild(sortererBlock);
+  destNode.append(sortBox);
   return {
-    sortererBlock,
-    mainContainer,
-    addButton,
+    sortBox,
+    mainCont,
+    renderBtn,
+    getDataBtn,
     select,
     input,
   };

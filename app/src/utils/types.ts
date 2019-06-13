@@ -1,7 +1,8 @@
 export interface Elements {
-  sortererBlock: HTMLDivElement;
-  mainContainer: HTMLDivElement;
-  addButton: HTMLButtonElement;
+  sortBox: HTMLDivElement;
+  mainCont: HTMLDivElement;
+  renderBtn: HTMLButtonElement;
+  getDataBtn: HTMLButtonElement;
   select: HTMLSelectElement;
   input: HTMLInputElement;
 }
