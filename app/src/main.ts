@@ -1,6 +1,8 @@
 import Sorterer from './utils/sorter';
 import Renderer from './utils/render';
+import ProgressLine from './components/progress-line';
 import drawTmpl from './template';
+import create from './utils/create-element';
 import getDataSource from './utils/data-sources';
 import createLoadingWindow from './components/data-loading-window';
 import createErrorWindow from './components/error-msg-window';
@@ -11,9 +13,7 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   const waitMsg = 'Загрузка данных, пожалуйста подождите.';
   const incorrectData = 'Данные некорректны!';
   let targetValue: number[];
-  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(
-    dest,
-  );
+  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(dest);
 
   async function getDataFromSource(): Promise<void> {
     const source = getDataSource(select.selectedIndex);
@@ -42,25 +42,32 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
       if (!checkData(targetValue)) {
         throw new Error(incorrectData);
       }
-      const columnsContainer = document.createElement('div');
-      const sortUpBtn = document.createElement('button');
-      const sortDownBtn = document.createElement('button');
+
+      const sortUpBtn = create('button', { innerText: '⇒' });
+      const sortDownBtn = create('button', { innerText: '⇐' });
       const closeBtn = createCloseButton();
-      sortUpBtn.innerText = '⇒';
-      sortDownBtn.innerText = '⇐';
-      columnsContainer.append(sortDownBtn, sortUpBtn, closeBtn);
-      columnsContainer.classList.add('colums-container');
+      const colContainer = create(
+        'div',
+        { className: 'col-container' },
+        sortDownBtn,
+        sortUpBtn,
+        closeBtn,
+      );
 
       const sorterer = new Sorterer(targetValue);
-      const renderer = new Renderer(targetValue, columnsContainer);
-      mainCont.appendChild(columnsContainer);
+      const renderer = new Renderer(targetValue, colContainer);
+      const line = new ProgressLine(sortBox, 5);
 
       sortUpBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepUp());
+        line.stepUp();
       };
       sortDownBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepBack());
+        line.stepDown();
       };
+
+      mainCont.appendChild(colContainer);
     } catch (err) {
       const errorMsg = createErrorWindow(err.message);
       sortBox.appendChild(errorMsg);

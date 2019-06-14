@@ -2,23 +2,23 @@ import { Elements } from './utils/types';
 import create from './utils/create-element';
 
 export default function drawTmpl(destNode: HTMLElement): Elements {
-  const input = create<HTMLInputElement>('input', {
+  const input = create('input', {
     placeholder: 'Введите значение и нажмите "Отрисовать"',
   });
-  const mainCont = create<HTMLDivElement>('div', {
+  const mainCont = create('div', {
     className: 'main-container',
   });
-  const getDataBtn = create<HTMLButtonElement>('button', {
+  const getDataBtn = create('button', {
     className: 'get-data-button',
     innerText: '+',
   });
-  const renderBtn = create<HTMLButtonElement>('button', {
+  const renderBtn = create('button', {
     className: 'add-button',
     innerText: 'Отрисовать',
   });
-  const select = create<HTMLSelectElement>('select');
+  const select = create('select');
   const br = document.createElement('br');
-  const sortBox = create<HTMLDivElement>(
+  const sortBox = create(
     'div',
     { className: 'sorterer-main-container' },
     'Источник: ',

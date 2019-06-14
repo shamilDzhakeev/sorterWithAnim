@@ -1,3 +1,4 @@
+import create from '../utils/create-element';
 export default class ProgressLine {
   private progressBar: HTMLDivElement;
   private progressText: HTMLSpanElement;
@@ -11,29 +12,23 @@ export default class ProgressLine {
     this.percentage = 0;
     this.i = 0;
 
-    this.progressBar = document.createElement('div');
-    this.progressBar.classList.add('progressBar');
-
-    this.progressText = document.createElement('span');
-    this.progressText.classList.add('progressText');
-
-    this.progressCount = document.createElement('span');
-    this.progressCount.classList.add('stepNumber');
-    this.progressCount.textContent = `${this.i}`;
-
-    this.progressText.appendChild(this.progressCount);
-    this.progressText.appendChild(document.createTextNode(`/${length}`));
-    this.progressBar.appendChild(this.progressText);
-    columnsContainer.appendChild(this.progressBar);
+    this.progressCount = create('span', {
+      className: 'stepNumber',
+      textContent: `${this.i}`,
+    });
+    this.progressText = create(
+      'span',
+      { className: 'progressText' },
+      this.progressCount,
+      `/${length}`,
+    );
+    this.progressBar = create('div', { className: 'progressBar' }, this.progressText);
+    columnsContainer.append(this.progressBar);
   }
 
   private advanceProgress(value: number): void {
     this.progressBar.style.backgroundImage =
-      'linear-gradient(90deg, var(--light-blue) ' +
-      value +
-      '%, var(--white)' +
-      value +
-      '%)';
+      'linear-gradient(90deg, var(--light-blue) ' + value + '%, var(--white)' + value + '%)';
   }
 
   public stepUp(): void {

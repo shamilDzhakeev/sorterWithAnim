@@ -1,8 +1,10 @@
-export default function create<T extends HTMLElement>(
-  name: string,
+import { HTMLElements } from './types';
+
+export default function create<T extends keyof HTMLElements>(
+  name: T,
   attributes?: {},
   ...children: (Node | string)[]
-): T {
+): HTMLElements[T] {
   const el = document.createElement(name);
 
   for (const key in attributes) {
@@ -11,5 +13,5 @@ export default function create<T extends HTMLElement>(
     }
   }
   el.append(...children);
-  return el as T;
+  return el;
 }
