@@ -12,6 +12,7 @@ import checkData from './utils/data-checker';
 async function addNewSorterer(dest: HTMLElement): Promise<void> {
   const waitMsg = 'Загрузка данных, пожалуйста подождите.';
   const incorrectData = 'Данные некорректны!';
+  let totalCount = 0;
   let targetValue: number[];
   const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(dest);
 
@@ -54,15 +55,19 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
 
       const sorterer = new Sorterer(targetValue);
       const renderer = new Renderer(targetValue, colContainer);
-      const line = new ProgressLine(sortBox, 5);
+      const line = new ProgressLine(document.body);
+      console.log(line);
 
       sortUpBtn.onclick = (): void => {
+        totalCount = sorterer.getSortLength();
         renderer.updateRender(sorterer.doStepUp());
-        line.stepUp();
+        line.stepUp(totalCount);
+        console.log();
       };
       sortDownBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepBack());
         line.stepDown();
+        console.log();
       };
 
       mainCont.appendChild(colContainer);
@@ -73,6 +78,7 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
       console.error(err);
     }
   }
+
   renderBtn.onclick = renderData;
   getDataBtn.onclick = getDataFromSource;
 }

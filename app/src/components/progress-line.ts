@@ -3,26 +3,16 @@ import createCloseBtn from './close-button';
 export default class ProgressLine {
   private progressBar: HTMLDivElement;
   private progressText: HTMLSpanElement;
-  private progressCount: HTMLSpanElement;
   private i: number;
   private length: number;
   private percentage: number;
 
-  public constructor(columnsContainer: HTMLDivElement, length: number) {
-    this.length = length;
+  public constructor(columnsContainer: HTMLElement) {
+    this.length = 0;
     this.percentage = 0;
     this.i = 0;
 
-    this.progressCount = create('span', {
-      className: 'stepNumber',
-      textContent: `${this.i}`,
-    });
-    this.progressText = create(
-      'span',
-      { className: 'progressText' },
-      this.progressCount,
-      `/${length}`,
-    );
+    this.progressText = create('span', { className: 'progressText', textContent: `${this.i}` });
     this.progressBar = create(
       'div',
       { className: 'progressBar' },
@@ -37,17 +27,17 @@ export default class ProgressLine {
       'linear-gradient(90deg, var(--light-blue) ' + value + '%, var(--white)' + value + '%)';
   }
 
-  public stepUp(): void {
-    if (this.i < this.length) {
-      this.progressCount.textContent = `${++this.i}`;
-      this.percentage = this.percentage + 100 / this.length;
+  public stepUp(len): void {
+    if (this.i < len) {
+      this.progressText.textContent = `${++this.i}`;
+      this.percentage = this.percentage + 100 / len;
       this.advanceProgress(this.percentage);
     }
   }
 
   public stepDown(): void {
     if (this.i > 0) {
-      this.progressCount.textContent = `${--this.i}`;
+      this.progressText.textContent = `${--this.i}`;
       this.percentage = this.percentage - 100 / this.length;
       this.advanceProgress(this.percentage);
     }
