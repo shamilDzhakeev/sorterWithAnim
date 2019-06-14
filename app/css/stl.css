@@ -3,6 +3,7 @@
   --dark-blue: #2c3e50;
   --white: white;
   --crimson: crimson;
+  --crimson-light: rgb(252, 49, 90);
   --gray: gray;
 }
 
@@ -140,9 +141,10 @@ select {
 }
 
 .progressBar {
+  position: relative;
   margin: 10px 0;
   top: 6px;
-  right: 35px;
+  left: 10px;
   border: solid 1px var(--dark-blue);
   width: 300px;
   padding: 2px;
@@ -155,4 +157,24 @@ select {
   width: 100%;
   font-size: 15px;
   font-family: Arial;
+}
+
+.little-remove {
+  position: absolute;
+  top: 2px;
+  right: -20px;
+  font-size: 7px;
+  padding: 0;
+  margin: 0;
+  width: 17px;
+  height: 17px;
+  background-color: var(--crimson);
+  color: var(--white);
+  border: var(--crimson) 1px solid;
+  border-radius: 30px;
+}
+
+.little-remove:hover {
+  background-color: var(--crimson-light);
+  border: var(--crimson-light) 1px solid;
 }

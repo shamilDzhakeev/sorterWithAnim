@@ -1,4 +1,5 @@
 import create from '../utils/create-element';
+import createCloseBtn from './close-button';
 export default class ProgressLine {
   private progressBar: HTMLDivElement;
   private progressText: HTMLSpanElement;
@@ -22,7 +23,12 @@ export default class ProgressLine {
       this.progressCount,
       `/${length}`,
     );
-    this.progressBar = create('div', { className: 'progressBar' }, this.progressText);
+    this.progressBar = create(
+      'div',
+      { className: 'progressBar' },
+      this.progressText,
+      createCloseBtn('little-remove'),
+    );
     columnsContainer.append(this.progressBar);
   }
 

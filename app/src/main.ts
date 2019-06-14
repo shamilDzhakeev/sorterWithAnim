@@ -31,8 +31,6 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
       waitMsgWindow.remove();
       const errorMsg = createErrorWindow(err.message);
       sortBox.appendChild(errorMsg);
-      // eslint-disable-next-line no-console
-      console.error(err);
     }
   }
 
@@ -45,7 +43,7 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
 
       const sortUpBtn = create('button', { innerText: '⇒' });
       const sortDownBtn = create('button', { innerText: '⇐' });
-      const closeBtn = createCloseButton();
+      const closeBtn = createCloseButton('close-button');
       const colContainer = create(
         'div',
         { className: 'col-container' },
