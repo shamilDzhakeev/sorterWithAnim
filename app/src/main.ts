@@ -14,7 +14,11 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   const incorrectData = 'Данные некорректны!';
   let totalCount = 0;
   let targetValue: number[];
-  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(dest);
+  let map = new Map();
+
+  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(
+    dest
+  );
 
   async function getDataFromSource(): Promise<void> {
     const source = getDataSource(select.selectedIndex);
@@ -36,6 +40,7 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   }
 
   function renderData(): void {
+    let previousLen = 0;
     targetValue = input.value.split('').map(Number);
     try {
       if (!checkData(targetValue)) {
@@ -50,24 +55,48 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
         { className: 'col-container' },
         sortDownBtn,
         sortUpBtn,
-        closeBtn,
+        closeBtn
       );
 
       const sorterer = new Sorterer(targetValue);
       const renderer = new Renderer(targetValue, colContainer);
       const line = new ProgressLine(document.body);
-      console.log(line);
+      map.set(sorterer, line);
+      //console.log(line);
 
       sortUpBtn.onclick = (): void => {
-        totalCount = sorterer.getSortLength();
         renderer.updateRender(sorterer.doStepUp());
-        line.stepUp(totalCount);
-        console.log();
+
+        const currLen = sorterer.getSortLength();
+        if (previousLen + 1 === currLen) {
+          previousLen = currLen;
+          totalCount++;
+          map.forEach(
+            (value, key): void => {
+              value.stepUp(totalCount, key.getSortLength());
+            }
+          );
+        }
+        console.log(`Total: ${totalCount} сортировщик: ${currLen}`);
       };
+
+      /*-----------------------------------------------*/
+
       sortDownBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepBack());
-        line.stepDown();
-        console.log();
+
+        const currLen = sorterer.getSortLength();
+        if (previousLen - 1 === currLen) {
+          previousLen = currLen;
+          totalCount--;
+          map.forEach(
+            (value, key): void => {
+              value.stepDown(totalCount, key.getSortLength());
+            }
+          );
+          //line.stepDown(totalCount, currLen);
+        }
+        console.log(`Total: ${totalCount} сортировщик: ${currLen}`);
       };
 
       mainCont.appendChild(colContainer);

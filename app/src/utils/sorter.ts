@@ -2,7 +2,7 @@ export default class Sorterer {
   private arr: number[];
   private indexes: number[];
   private j: number = 0;
-  public length: number = 0;
+  //public length: number = 0;
 
   public constructor(targetArr: number[]) {
     this.arr = [...targetArr];
@@ -45,7 +45,7 @@ export default class Sorterer {
   }
 
   public getSortLength(): number {
-    return this.indexes.length;
+    return this.j;
   }
 
   private static swap(arr: number[], i: number): void {

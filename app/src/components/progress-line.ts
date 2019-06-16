@@ -3,42 +3,50 @@ import createCloseBtn from './close-button';
 export default class ProgressLine {
   private progressBar: HTMLDivElement;
   private progressText: HTMLSpanElement;
-  private i: number;
-  private length: number;
+  /* private i: number; */
   private percentage: number;
 
   public constructor(columnsContainer: HTMLElement) {
-    this.length = 0;
     this.percentage = 0;
-    this.i = 0;
+    /* this.i = 0; */
 
-    this.progressText = create('span', { className: 'progressText', textContent: `${this.i}` });
+    this.progressText = create('span', {
+      className: 'progressText',
+      textContent: `0`,
+    });
     this.progressBar = create(
       'div',
       { className: 'progressBar' },
       this.progressText,
-      createCloseBtn('little-remove'),
+      createCloseBtn('little-remove')
     );
     columnsContainer.append(this.progressBar);
   }
 
   private advanceProgress(value: number): void {
     this.progressBar.style.backgroundImage =
-      'linear-gradient(90deg, var(--light-blue) ' + value + '%, var(--white)' + value + '%)';
+      'linear-gradient(90deg, var(--light-blue) ' +
+      value +
+      '%, var(--white)' +
+      value +
+      '%)';
   }
 
-  public stepUp(len): void {
-    if (this.i < len) {
-      this.progressText.textContent = `${++this.i}`;
-      this.percentage = this.percentage + 100 / len;
+  public stepUp(totalCount: number, currCount: number): void {
+    if (currCount <= totalCount) {
+      this.progressText.textContent = `${currCount}`; /* `${++this.i}` */
+      this.percentage = 100 / (totalCount - currCount || 1);
+      console.log(this.percentage);
+
       this.advanceProgress(this.percentage);
     }
   }
 
-  public stepDown(): void {
-    if (this.i > 0) {
-      this.progressText.textContent = `${--this.i}`;
-      this.percentage = this.percentage - 100 / this.length;
+  public stepDown(totalCount: number, currCount: number): void {
+    if (currCount > 0) {
+      this.progressText.textContent = `${currCount}`; /* `${--this.i}` */
+
+      this.percentage = currCount ? 100 / (totalCount - currCount || 1) : 0;
       this.advanceProgress(this.percentage);
     }
   }
