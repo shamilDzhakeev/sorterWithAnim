@@ -4,10 +4,11 @@ export default class ProgressLine {
   private progressBar: HTMLDivElement;
   private progressText: HTMLSpanElement;
   private percentage: number;
+  private color: string;
 
-  public constructor(columnsContainer: HTMLElement) {
+  public constructor(columnsContainer: HTMLElement, color: string) {
     this.percentage = 0;
-
+    this.color = color;
     this.progressText = create('span', {
       className: 'progressText',
       textContent: `0`,
@@ -22,7 +23,9 @@ export default class ProgressLine {
   }
 
   private advanceProgress(value: number): void {
-    this.progressBar.style.backgroundImage = `linear-gradient(90deg, var(--light-blue) ${value}%, var(--white) ${value}%)`;
+    this.progressBar.style.background = `linear-gradient(90deg, ${
+      this.color
+    } ${value}%, var(--white) ${value}%)`;
   }
 
   public updateProgressLine(totalCount: number, currCount: number): void {

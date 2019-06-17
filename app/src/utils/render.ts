@@ -3,7 +3,7 @@ export default class Renderer {
   private index: number[];
   private container: HTMLDivElement;
 
-  public constructor(arr: number[], columnsContainer: HTMLDivElement) {
+  public constructor(arr: number[], columnsContainer: HTMLDivElement, color: string) {
     const COLUMN_HEIGHT = 15;
 
     this.container = columnsContainer;
@@ -16,6 +16,7 @@ export default class Renderer {
 
         const newColumn = document.createElement('div');
         newColumn.className = 'column';
+        newColumn.style.backgroundColor = color;
         newColumn.style.height = `${value * COLUMN_HEIGHT}px`;
         newColumn.style.left = Renderer.getColumnOffset(index);
         newColumn.innerText = value.toString();
@@ -31,9 +32,9 @@ export default class Renderer {
   }
 
   public updateRender(newValuesArr: number[]): void {
-    const columns = this.container.getElementsByClassName(
-      'column',
-    ) as HTMLCollectionOf<HTMLDivElement>;
+    const columns = this.container.getElementsByClassName('column') as HTMLCollectionOf<
+      HTMLDivElement
+    >;
 
     for (let i = 0; i < newValuesArr.length; i += 1) {
       if (newValuesArr[i] !== this.curValuesArr[i]) {

@@ -2,6 +2,7 @@ import Sorterer from './utils/sorter';
 import Renderer from './utils/render';
 import ProgressLine from './components/progress-line';
 import drawTmpl from './template';
+import getRandomColor from './utils/random-color';
 import create from './utils/create-element';
 import getDataSource from './utils/data-sources';
 import createLoadingWindow from './components/data-loading-window';
@@ -40,6 +41,7 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   function renderData(): void {
     let previousLen = 0;
     targetValue = input.value.split('').map(Number);
+    const color = getRandomColor();
     try {
       if (!checkData(targetValue)) {
         throw new Error(incorrectData);
@@ -57,8 +59,8 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
       );
 
       const sorterer = new Sorterer(targetValue);
-      const renderer = new Renderer(targetValue, colContainer);
-      const line = new ProgressLine(document.body);
+      const renderer = new Renderer(targetValue, colContainer, color);
+      const line = new ProgressLine(document.body, color);
       progressLines.set(sorterer, line);
 
       sortUpBtn.onclick = (): void => {

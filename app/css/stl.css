@@ -85,7 +85,7 @@ button {
 .column {
   position: absolute;
   width: 25px;
-  background-color: var(--light-blue);
+  /* background-color: var(--light-blue); */
   margin: 20px;
   margin-top: 10px;
   transition-property: left;
