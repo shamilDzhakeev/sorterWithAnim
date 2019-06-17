@@ -3,12 +3,10 @@ import createCloseBtn from './close-button';
 export default class ProgressLine {
   private progressBar: HTMLDivElement;
   private progressText: HTMLSpanElement;
-  /* private i: number; */
   private percentage: number;
 
   public constructor(columnsContainer: HTMLElement) {
     this.percentage = 0;
-    /* this.i = 0; */
 
     this.progressText = create('span', {
       className: 'progressText',
@@ -18,36 +16,22 @@ export default class ProgressLine {
       'div',
       { className: 'progressBar' },
       this.progressText,
-      createCloseBtn('little-remove')
+      createCloseBtn('little-remove'),
     );
     columnsContainer.append(this.progressBar);
   }
 
   private advanceProgress(value: number): void {
-    this.progressBar.style.backgroundImage =
-      'linear-gradient(90deg, var(--light-blue) ' +
-      value +
-      '%, var(--white)' +
-      value +
-      '%)';
+    this.progressBar.style.backgroundImage = `linear-gradient(90deg, var(--light-blue) ${value}%, var(--white) ${value}%)`;
   }
 
-  public stepUp(totalCount: number, currCount: number): void {
-    if (currCount <= totalCount) {
-      this.progressText.textContent = `${currCount}`; /* `${++this.i}` */
-      this.percentage = 100 / (totalCount - currCount || 1);
-      console.log(this.percentage);
-
-      this.advanceProgress(this.percentage);
+  public updateProgressLine(totalCount: number, currCount: number): void {
+    this.progressText.textContent = `${currCount}`;
+    if (currCount === totalCount) {
+      this.percentage = currCount ? 100 : 0;
+    } else {
+      this.percentage = (100 * currCount) / totalCount;
     }
-  }
-
-  public stepDown(totalCount: number, currCount: number): void {
-    if (currCount > 0) {
-      this.progressText.textContent = `${currCount}`; /* `${--this.i}` */
-
-      this.percentage = currCount ? 100 / (totalCount - currCount || 1) : 0;
-      this.advanceProgress(this.percentage);
-    }
+    this.advanceProgress(this.percentage);
   }
 }

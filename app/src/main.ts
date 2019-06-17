@@ -14,11 +14,9 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   const incorrectData = 'Данные некорректны!';
   let totalCount = 0;
   let targetValue: number[];
-  let map = new Map();
+  let progressLines = new Map();
 
-  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(
-    dest
-  );
+  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(dest);
 
   async function getDataFromSource(): Promise<void> {
     const source = getDataSource(select.selectedIndex);
@@ -55,48 +53,40 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
         { className: 'col-container' },
         sortDownBtn,
         sortUpBtn,
-        closeBtn
+        closeBtn,
       );
 
       const sorterer = new Sorterer(targetValue);
       const renderer = new Renderer(targetValue, colContainer);
       const line = new ProgressLine(document.body);
-      map.set(sorterer, line);
-      //console.log(line);
+      progressLines.set(sorterer, line);
 
       sortUpBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepUp());
-
         const currLen = sorterer.getSortLength();
         if (previousLen + 1 === currLen) {
           previousLen = currLen;
           totalCount++;
-          map.forEach(
-            (value, key): void => {
-              value.stepUp(totalCount, key.getSortLength());
-            }
+          progressLines.forEach(
+            (line, sorterer): void => {
+              line.updateProgressLine(totalCount, sorterer.getSortLength());
+            },
           );
         }
-        console.log(`Total: ${totalCount} сортировщик: ${currLen}`);
       };
-
-      /*-----------------------------------------------*/
 
       sortDownBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepBack());
-
         const currLen = sorterer.getSortLength();
         if (previousLen - 1 === currLen) {
           previousLen = currLen;
           totalCount--;
-          map.forEach(
-            (value, key): void => {
-              value.stepDown(totalCount, key.getSortLength());
-            }
+          progressLines.forEach(
+            (line, sorterer): void => {
+              line.updateProgressLine(totalCount, sorterer.getSortLength());
+            },
           );
-          //line.stepDown(totalCount, currLen);
         }
-        console.log(`Total: ${totalCount} сортировщик: ${currLen}`);
       };
 
       mainCont.appendChild(colContainer);
@@ -111,5 +101,4 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   renderBtn.onclick = renderData;
   getDataBtn.onclick = getDataFromSource;
 }
-
 export default addNewSorterer;
