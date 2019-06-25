@@ -1,6 +1,5 @@
 import Sorterer from './utils/sorter';
 import Renderer from './utils/render';
-import ProgressLine from './components/progress-line';
 import drawTmpl from './template';
 import getRandomColor from './utils/random-color';
 import create from './utils/create-element';
@@ -13,9 +12,8 @@ import checkData from './utils/data-checker';
 async function addNewSorterer(dest: HTMLElement): Promise<void> {
   const waitMsg = 'Загрузка данных, пожалуйста подождите.';
   const incorrectData = 'Данные некорректны!';
-  let totalCount = 0;
+
   let targetValue: number[];
-  let progressLines = new Map();
 
   const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(dest);
 
@@ -39,7 +37,6 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   }
 
   function renderData(): void {
-    let previousLen = 0;
     targetValue = input.value.split('').map(Number);
     const color = getRandomColor();
     try {
@@ -60,47 +57,24 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
 
       const sorterer = new Sorterer(targetValue);
       const renderer = new Renderer(targetValue, colContainer, color);
-      const line = new ProgressLine(document.body, color);
-      progressLines.set(sorterer, line);
 
       sortUpBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepUp());
-        const currLen = sorterer.getSortLength();
-        if (previousLen + 1 === currLen) {
-          previousLen = currLen;
-          totalCount++;
-          progressLines.forEach(
-            (line, sorterer): void => {
-              line.updateProgressLine(totalCount, sorterer.getSortLength());
-            },
-          );
-        }
       };
 
       sortDownBtn.onclick = (): void => {
         renderer.updateRender(sorterer.doStepBack());
-        const currLen = sorterer.getSortLength();
-        if (previousLen - 1 === currLen) {
-          previousLen = currLen;
-          totalCount--;
-          progressLines.forEach(
-            (line, sorterer): void => {
-              line.updateProgressLine(totalCount, sorterer.getSortLength());
-            },
-          );
-        }
       };
 
       mainCont.appendChild(colContainer);
     } catch (err) {
       const errorMsg = createErrorWindow(err.message);
       sortBox.appendChild(errorMsg);
-      // eslint-disable-next-line no-console
-      console.error(err);
     }
   }
 
   renderBtn.onclick = renderData;
   getDataBtn.onclick = getDataFromSource;
 }
+
 export default addNewSorterer;

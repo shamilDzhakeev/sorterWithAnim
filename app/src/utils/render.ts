@@ -10,25 +10,23 @@ export default class Renderer {
     this.curValuesArr = [...arr];
     this.index = [];
 
-    this.curValuesArr.forEach(
-      (value, index): void => {
-        this.index.push(index);
+    this.curValuesArr.forEach((value, index): void => {
+      this.index.push(index);
 
-        const newColumn = document.createElement('div');
-        newColumn.className = 'column';
-        newColumn.style.backgroundColor = color;
-        newColumn.style.height = `${value * COLUMN_HEIGHT}px`;
-        newColumn.style.left = Renderer.getColumnOffset(index);
-        newColumn.innerText = value.toString();
-        columnsContainer.appendChild(newColumn);
-      },
-    );
+      const newColumn = document.createElement('div');
+      newColumn.className = 'column';
+      newColumn.style.backgroundColor = color;
+      newColumn.style.height = `${value * COLUMN_HEIGHT}px`;
+      newColumn.style.left = Renderer.getColumnOffset(index);
+      newColumn.innerText = value.toString();
+      columnsContainer.appendChild(newColumn);
+    });
   }
 
-  private static COLUM_SPACING = 30;
+  private static COLUMN_SPACING = 30;
 
   private static getColumnOffset(index: number): string {
-    return `${index * Renderer.COLUM_SPACING}px`;
+    return `${index * Renderer.COLUMN_SPACING}px`;
   }
 
   public updateRender(newValuesArr: number[]): void {
@@ -43,12 +41,9 @@ export default class Renderer {
       }
     }
 
-    Array.prototype.forEach.call(
-      columns,
-      (_: HTMLDivElement, i: number): void => {
-        columns[this.index[i]].style.left = Renderer.getColumnOffset(i);
-      },
-    );
+    Array.prototype.forEach.call(columns, (_: HTMLDivElement, i: number): void => {
+      columns[this.index[i]].style.left = Renderer.getColumnOffset(i);
+    });
 
     this.curValuesArr = [...newValuesArr];
   }

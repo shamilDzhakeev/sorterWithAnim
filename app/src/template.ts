@@ -13,7 +13,7 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
     innerText: '+',
   });
   const renderBtn = create('button', {
-    className: 'add-button',
+    className: 'render-button',
     innerText: 'Отрисовать',
   });
   const select = create('select');
@@ -31,20 +31,17 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
     mainCont,
   );
 
-  select.addEventListener(
-    'change',
-    (): void => {
-      if (select.selectedIndex === 1) {
-        getDataBtn.style.display = 'inline-block';
-        input.placeholder = 'Для получения данных нажмите кнопку "+"';
-        input.disabled = true;
-      } else {
-        getDataBtn.style.display = 'none';
-        input.placeholder = 'Введите значение и нажмите "Отрисовать"';
-        input.disabled = false;
-      }
-    },
-  );
+  select.addEventListener('change', (): void => {
+    if (select.selectedIndex === 1) {
+      getDataBtn.style.display = 'inline-block';
+      input.placeholder = 'Для получения данных нажмите кнопку "+"';
+      input.disabled = true;
+    } else {
+      getDataBtn.style.display = 'none';
+      input.placeholder = 'Введите значение и нажмите "Отрисовать"';
+      input.disabled = false;
+    }
+  });
 
   const sources = {
     input: 'Ввести значение вручную',
