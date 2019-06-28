@@ -16,9 +16,10 @@ p {
   text-align: center;
 }
 
-.sorterer-main-container {
+.application {
   background-color: var(--white);
   width: auto;
+  min-height: 135px;
   margin: 5px;
   padding: 5px;
   position: relative;
@@ -30,22 +31,33 @@ p {
   min-height: 50px;
   width: auto;
   height: auto;
-
   margin-top: 5px;
 }
 
-.sorterer-header {
-  position: relative;
-}
-
-.col-container {
+.sorter {
   position: relative;
   width: auto;
-  height: 190px;
+  height: 200px;
   border: #2c3e50 2px solid;
   border-radius: 5px;
   margin: 10px 5px;
   padding: 5px;
+}
+
+.sorter-header {
+  position: relative;
+}
+
+.columns-container {
+  position: relative;
+  width: auto;
+  height: 170px;
+  margin: 0 10px;
+
+  /*   border: #2c3e50 2px solid;
+  border-radius: 5px;
+  margin: 10px 5px;
+  padding: 5px; */
 }
 
 button {
@@ -76,9 +88,6 @@ button {
   color: var(--crimson);
 }
 
-.render-button {
-}
-
 .get-data-button {
   display: none;
   width: 25px;
@@ -86,8 +95,7 @@ button {
 .column {
   position: absolute;
   width: 25px;
-  /* background-color: var(--light-blue); */
-  margin: 20px;
+  margin: 2px;
   margin-top: 10px;
   transition-property: left;
   transition-duration: 0.2s;

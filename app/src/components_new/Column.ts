@@ -1,4 +1,4 @@
-export default function Column(height: number, position: number, color: string): HTMLDivElement {
+function Column(height: number, position: number, color: string = 'gray'): HTMLDivElement {
   const COLUMN_HEIGHT_COEFFICIENT = 15;
   const COLUMN_SPACING = 30;
 
@@ -11,3 +11,5 @@ export default function Column(height: number, position: number, color: string):
 
   return column;
 }
+
+export default Column;

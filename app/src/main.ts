@@ -1,4 +1,4 @@
-import Sorterer from './utils/sorter';
+import Sorter from './utils/sorter';
 import Renderer from './utils/render';
 import drawTmpl from './template';
 import getRandomColor from './utils/random-color';
@@ -9,7 +9,7 @@ import createErrorWindow from './components/error-msg-window';
 import createCloseButton from './components/close-button';
 import checkData from './utils/data-checker';
 
-async function addNewSorterer(dest: HTMLElement): Promise<void> {
+async function addNewSorter(dest: HTMLElement): Promise<void> {
   const waitMsg = 'Загрузка данных, пожалуйста подождите.';
   const incorrectData = 'Данные некорректны!';
 
@@ -49,21 +49,25 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
       const closeBtn = createCloseButton('close-button');
       const colContainer = create(
         'div',
-        { className: 'col-container' },
+        { className: 'columns-container' },
         sortDownBtn,
         sortUpBtn,
         closeBtn,
       );
 
-      const sorterer = new Sorterer(targetValue);
+      const sorter = new Sorter(targetValue);
+      console.log(sorter);
+
       const renderer = new Renderer(targetValue, colContainer, color);
 
       sortUpBtn.onclick = (): void => {
-        renderer.updateRender(sorterer.doStepUp());
+        renderer.updateRender(sorter.doStepUp());
+        console.log(sorter);
       };
 
       sortDownBtn.onclick = (): void => {
-        renderer.updateRender(sorterer.doStepBack());
+        renderer.updateRender(sorter.doStepBack());
+        console.log(sorter);
       };
 
       mainCont.appendChild(colContainer);
@@ -77,4 +81,4 @@ async function addNewSorterer(dest: HTMLElement): Promise<void> {
   getDataBtn.onclick = getDataFromSource;
 }
 
-export default addNewSorterer;
+export default addNewSorter;

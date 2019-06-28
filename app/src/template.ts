@@ -20,7 +20,7 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
   const br = document.createElement('br');
   const sortBox = create(
     'div',
-    { className: 'sorterer-main-container' },
+    { className: 'sorter-main-container' },
     'Источник: ',
     select,
     getDataBtn,
