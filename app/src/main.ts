@@ -8,11 +8,13 @@ import createLoadingWindow from './components/data-loading-window';
 import createErrorWindow from './components/error-msg-window';
 import createCloseButton from './components/close-button';
 import checkData from './utils/data-checker';
+import ProgressLine from './components/progress-line';
 
-async function addNewSorter(dest: HTMLElement): Promise<void> {
+function addNewSorter(dest: HTMLElement): void {
   const waitMsg = 'Загрузка данных, пожалуйста подождите.';
   const incorrectData = 'Данные некорректны!';
-
+  let totalCount = 0;
+  let progressLines = new Map();
   let targetValue: number[];
 
   const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(dest);
@@ -37,6 +39,7 @@ async function addNewSorter(dest: HTMLElement): Promise<void> {
   }
 
   function renderData(): void {
+    let previousLen = 0;
     targetValue = input.value.split('').map(Number);
     const color = getRandomColor();
     try {
@@ -56,18 +59,41 @@ async function addNewSorter(dest: HTMLElement): Promise<void> {
       );
 
       const sorter = new Sorter(targetValue);
-      console.log(sorter);
-
       const renderer = new Renderer(targetValue, colContainer, color);
+      const line = new ProgressLine(document.body, color);
+      progressLines.set(sorter, line);
 
       sortUpBtn.onclick = (): void => {
         renderer.updateRender(sorter.doStepUp());
         console.log(sorter);
       };
 
+      sortUpBtn.onclick = (): void => {
+        renderer.updateRender(sorter.doStepUp());
+        const currLen = sorter.getCurrentSortState();
+        if (previousLen + 1 === currLen) {
+          previousLen = currLen;
+          totalCount++;
+          progressLines.forEach(
+            (line, sorter): void => {
+              line.updateProgressLine(totalCount, sorter.getCurrentSortState());
+            }
+          );
+        }
+      };
+
       sortDownBtn.onclick = (): void => {
         renderer.updateRender(sorter.doStepBack());
-        console.log(sorter);
+        const currLen = sorter.getCurrentSortState();
+        if (previousLen - 1 === currLen) {
+          previousLen = currLen;
+          totalCount--;
+          progressLines.forEach(
+            (line, sorter): void => {
+              line.updateProgressLine(totalCount, sorter.getCurrentSortState());
+            }
+          );
+        }
       };
 
       mainCont.appendChild(colContainer);
