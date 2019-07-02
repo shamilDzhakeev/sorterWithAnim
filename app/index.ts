@@ -1,6 +1,6 @@
 /* Entry point */
 
-import addNewSorter from './src/main';
+import App from './src/main';
 import './css/stl.css';
 
-addNewSorter(document.body);
+App(document.body);

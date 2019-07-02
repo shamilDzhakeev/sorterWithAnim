@@ -2,50 +2,24 @@ import Sorter from './utils/sorter';
 import Renderer from './utils/render';
 import drawTmpl from './template';
 import getRandomColor from './utils/random-color';
-import getDataSource from './utils/data-sources';
-import createLoadingWindow from './components/data-loading-window';
 import createErrorWindow from './components/error-msg-window';
 import createCloseButton from './components/close-button';
 import checkData from './utils/data-checker';
 import ProgressLine from './components/progress-line';
 
-function addNewSorter(dest: HTMLElement): void {
-  const waitMsg = 'Загрузка данных, пожалуйста подождите.';
-  const incorrectData = 'Данные некорректны!';
+export default function App(destination: HTMLElement): void {
   let totalCount = 0;
   let progressLines = new Map();
-  let targetValue: number[];
 
-  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl(dest);
-
-  async function getDataFromSource(): Promise<void> {
-    const source = getDataSource(select.selectedIndex);
-    const waitMsgWindow = createLoadingWindow(waitMsg);
-    mainCont.appendChild(waitMsgWindow);
-    try {
-      const data = await source.getData(input);
-      if (!checkData(data)) {
-        throw new Error(incorrectData);
-      }
-      targetValue = data;
-      input.value = targetValue.join('');
-      waitMsgWindow.remove();
-    } catch (err) {
-      waitMsgWindow.remove();
-      const errorMsg = createErrorWindow(err.message);
-      sortBox.appendChild(errorMsg);
-    }
-  }
+  const { sortBox, mainCont, renderBtn, getDataBtn, select, input } = drawTmpl();
 
   function renderData(): void {
     let previousLen = 0;
-    targetValue = input.value.split('').map(Number);
+    const targetValue = input.value.split('').map(Number);
     const color = getRandomColor();
-    try {
-      if (!checkData(targetValue)) {
-        throw new Error(incorrectData);
-      }
 
+    try {
+      checkData(targetValue);
       const sortUpBtn = document.createElement('button');
       sortUpBtn.innerText = '⇒';
       const sortDownBtn = document.createElement('button');
@@ -93,7 +67,6 @@ function addNewSorter(dest: HTMLElement): void {
   }
 
   renderBtn.onclick = renderData;
-  getDataBtn.onclick = getDataFromSource;
-}
 
-export default addNewSorter;
+  destination.append(sortBox);
+}

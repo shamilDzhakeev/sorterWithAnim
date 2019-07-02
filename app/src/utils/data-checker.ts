@@ -1,14 +1,17 @@
-const checkData = function(data: number[]): boolean {
+const checkData = function(data: number[]): void {
+  const incorrectData = 'Данные некорректны!';
   if (!data.length) {
-    return false;
+    throw new Error(incorrectData);
   }
-  return data.every(
-    (value): boolean => {
-      if (value === null || isNaN(value)) {
-        return false;
-      }
-      return true;
-    },
-  );
+  const isAllCorrect = data.every((value): boolean => {
+    if (value === null || isNaN(value)) {
+      return false;
+    }
+    return true;
+  });
+
+  if (!isAllCorrect) {
+    throw new Error(incorrectData);
+  }
 };
 export default checkData;

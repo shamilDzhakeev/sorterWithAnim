@@ -1,6 +1,11 @@
 import { Elements } from './utils/types';
+import getDataSource from './utils/data-sources';
+import createLoadingWindow from './components/data-loading-window';
+import createErrorWindow from './components/error-msg-window';
 
-export default function drawTmpl(destNode: HTMLElement): Elements {
+export default function drawTmpl(): Elements {
+  const waitMsg = 'Загрузка данных, пожалуйста подождите.';
+
   const input = document.createElement('input');
   input.placeholder = 'Введите значение и нажмите "Отрисовать"';
 
@@ -21,11 +26,9 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
     if (select.selectedIndex === 1) {
       getDataBtn.style.display = 'inline-block';
       input.placeholder = 'Для получения данных нажмите "Загрузить"';
-      input.disabled = true;
     } else {
       getDataBtn.style.display = 'none';
       input.placeholder = 'Введите значение и нажмите "Отрисовать"';
-      input.disabled = false;
     }
   });
 
@@ -33,6 +36,24 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
 
   const sortBox = document.createElement('div');
   sortBox.className = 'sorter-main-container';
+
+  async function getDataFromSource(): Promise<void> {
+    const source = getDataSource(select.selectedIndex);
+    const waitMsgWindow = createLoadingWindow(waitMsg);
+    mainCont.appendChild(waitMsgWindow);
+    try {
+      const data = await source.getData(input);
+
+      input.value = data.join('');
+      waitMsgWindow.remove();
+    } catch (err) {
+      waitMsgWindow.remove();
+      const errorMsg = createErrorWindow(err.message);
+      sortBox.append(errorMsg);
+    }
+  }
+
+  getDataBtn.onclick = getDataFromSource;
   sortBox.append('Источник: ', select, getDataBtn, br, 'Данные: ', input, renderBtn, mainCont);
 
   const sources = {
@@ -46,7 +67,6 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
     select.append(option);
   }
 
-  destNode.append(sortBox);
   return {
     sortBox,
     mainCont,
