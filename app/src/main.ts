@@ -55,7 +55,7 @@ function addNewSorter(dest: HTMLElement): void {
         { className: 'sorter-box' },
         sortDownBtn,
         sortUpBtn,
-        closeBtn
+        closeBtn,
       );
 
       const sorter = new Sorter(targetValue);
@@ -65,20 +65,13 @@ function addNewSorter(dest: HTMLElement): void {
 
       sortUpBtn.onclick = (): void => {
         renderer.updateRender(sorter.doStepUp());
-        console.log(sorter);
-      };
-
-      sortUpBtn.onclick = (): void => {
-        renderer.updateRender(sorter.doStepUp());
         const currLen = sorter.getCurrentSortState();
         if (previousLen + 1 === currLen) {
           previousLen = currLen;
           totalCount++;
-          progressLines.forEach(
-            (line, sorter): void => {
-              line.updateProgressLine(totalCount, sorter.getCurrentSortState());
-            }
-          );
+          progressLines.forEach((line, sorter): void => {
+            line.updateProgressLine(totalCount, sorter.getCurrentSortState());
+          });
         }
       };
 
@@ -88,11 +81,9 @@ function addNewSorter(dest: HTMLElement): void {
         if (previousLen - 1 === currLen) {
           previousLen = currLen;
           totalCount--;
-          progressLines.forEach(
-            (line, sorter): void => {
-              line.updateProgressLine(totalCount, sorter.getCurrentSortState());
-            }
-          );
+          progressLines.forEach((line, sorter): void => {
+            line.updateProgressLine(totalCount, sorter.getCurrentSortState());
+          });
         }
       };
 
