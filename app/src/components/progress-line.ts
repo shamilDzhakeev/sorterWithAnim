@@ -17,15 +17,13 @@ export default class ProgressLine {
       'div',
       { className: 'progressBar' },
       this.progressText,
-      createCloseBtn('little-remove'),
+      createCloseBtn('close-button second'),
     );
     columnsContainer.append(this.progressBar);
   }
 
   private advanceProgress(value: number): void {
-    this.progressBar.style.background = `linear-gradient(90deg, ${
-      this.color
-    } ${value}%, var(--white) ${value}%)`;
+    this.progressBar.style.background = `linear-gradient(90deg, ${this.color} ${value}%, var(--white) ${value}%)`;
   }
 
   public updateProgressLine(totalCount: number, currCount: number): void {

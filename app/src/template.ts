@@ -36,7 +36,7 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
     (): void => {
       if (select.selectedIndex === 1) {
         getDataBtn.style.display = 'inline-block';
-        input.placeholder = 'Для получения данных нажмите кнопку "+"';
+        input.placeholder = 'Для получения данных нажмите "Загрузить"';
         input.disabled = true;
       } else {
         getDataBtn.style.display = 'none';
