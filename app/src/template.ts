@@ -10,7 +10,7 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
   });
   const getDataBtn = create('button', {
     className: 'get-data-button',
-    innerText: '+',
+    innerText: 'Загрузить',
   });
   const renderBtn = create('button', {
     className: 'render-button',
@@ -28,20 +28,23 @@ export default function drawTmpl(destNode: HTMLElement): Elements {
     'Данные: ',
     input,
     renderBtn,
-    mainCont,
+    mainCont
   );
 
-  select.addEventListener('change', (): void => {
-    if (select.selectedIndex === 1) {
-      getDataBtn.style.display = 'inline-block';
-      input.placeholder = 'Для получения данных нажмите кнопку "+"';
-      input.disabled = true;
-    } else {
-      getDataBtn.style.display = 'none';
-      input.placeholder = 'Введите значение и нажмите "Отрисовать"';
-      input.disabled = false;
+  select.addEventListener(
+    'change',
+    (): void => {
+      if (select.selectedIndex === 1) {
+        getDataBtn.style.display = 'inline-block';
+        input.placeholder = 'Для получения данных нажмите кнопку "+"';
+        input.disabled = true;
+      } else {
+        getDataBtn.style.display = 'none';
+        input.placeholder = 'Введите значение и нажмите "Отрисовать"';
+        input.disabled = false;
+      }
     }
-  });
+  );
 
   const sources = {
     input: 'Ввести значение вручную',

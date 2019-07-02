@@ -49,10 +49,10 @@ async function addNewSorter(dest: HTMLElement): Promise<void> {
       const closeBtn = createCloseButton('close-button');
       const colContainer = create(
         'div',
-        { className: 'columns-container' },
+        { className: 'sorter-box' },
         sortDownBtn,
         sortUpBtn,
-        closeBtn,
+        closeBtn
       );
 
       const sorter = new Sorter(targetValue);

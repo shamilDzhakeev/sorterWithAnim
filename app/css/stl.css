@@ -6,60 +6,37 @@
   --crimson-light: rgb(252, 49, 90);
   --gray: gray;
 }
-
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 15px;
 }
-
 p {
   text-align: center;
 }
-
-.application {
+.sorter-main-container {
   background-color: var(--white);
   width: auto;
-  min-height: 135px;
   margin: 5px;
   padding: 5px;
   position: relative;
   border: var(--dark-blue) 2px solid;
   border-radius: 5px;
 }
-
 .main-container {
   min-height: 50px;
   width: auto;
   height: auto;
   margin-top: 5px;
 }
-
-.sorter {
+.sorter-box {
   position: relative;
   width: auto;
-  height: 200px;
+  height: 190px;
   border: #2c3e50 2px solid;
   border-radius: 5px;
   margin: 10px 5px;
   padding: 5px;
 }
-
-.sorter-header {
-  position: relative;
-}
-
-.columns-container {
-  position: relative;
-  width: auto;
-  height: 170px;
-  margin: 0 10px;
-
-  /*   border: #2c3e50 2px solid;
-  border-radius: 5px;
-  margin: 10px 5px;
-  padding: 5px; */
-}
-
 button {
   width: 90px;
   height: 25px;
@@ -70,7 +47,6 @@ button {
   border-width: 1px;
   outline: none;
 }
-
 .close-button {
   position: absolute;
   font-size: 110%;
@@ -90,12 +66,13 @@ button {
 
 .get-data-button {
   display: none;
-  width: 25px;
 }
+
 .column {
   position: absolute;
   width: 25px;
-  margin: 2px;
+  background-color: var(--light-blue);
+  margin: 20px;
   margin-top: 10px;
   transition-property: left;
   transition-duration: 0.2s;
@@ -104,19 +81,11 @@ button {
   border-bottom-right-radius: 5px;
   border: solid 1px var(--dark-blue);
 }
-
-input {
-  display: inline-block;
-  width: 300px;
-  height: 17px;
-  padding: 3px;
-  margin: 3px;
-  border: 1px solid var(--gray);
-}
-
+input,
 select {
-  margin: 3px;
+  width: 280px;
   padding: 3px;
+  margin: 3px;
   border: 1px solid var(--gray);
 }
 
@@ -132,7 +101,6 @@ select {
   padding: 10px;
   border-radius: 5px;
 }
-
 .modal {
   position: absolute;
   top: 50%;
@@ -142,13 +110,11 @@ select {
   height: 100%;
   background-color: rgba(44, 62, 80, 0.5);
 }
-
 .center-block-element {
   block-size: 25px;
   display: block;
   margin: 0 auto;
 }
-
 .progressBar {
   position: relative;
   margin: 10px 0;
@@ -167,7 +133,6 @@ select {
   font-size: 15px;
   font-family: Arial;
 }
-
 .little-remove {
   position: absolute;
   top: 2px;
@@ -182,8 +147,53 @@ select {
   border: var(--crimson) 1px solid;
   border-radius: 30px;
 }
-
 .little-remove:hover {
   background-color: var(--crimson-light);
   border: var(--crimson-light) 1px solid;
+}
+
+.loader {
+  display: block;
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--dark-blue);
+  border-radius: 50%;
+  animation: spin 0.75s infinite linear;
+}
+.loader::before,
+.loader::after {
+  left: -2px;
+  top: -2px;
+  display: none;
+  position: absolute;
+  content: '';
+  width: inherit;
+  height: inherit;
+  border: inherit;
+  border-radius: inherit;
+}
+
+.loader,
+.loader::before,
+.loader::after {
+  display: block;
+  border-color: transparent;
+  border-top-color: var(--dark-blue);
+  animation-duration: 1.2s;
+}
+.loader::before {
+  transform: rotate(120deg);
+}
+.loader::after {
+  transform: rotate(240deg);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

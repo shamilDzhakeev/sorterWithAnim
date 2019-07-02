@@ -1,5 +1,3 @@
-import loading from '../imgs/load.gif';
-
 export default function createLoadingWindow(msg): HTMLDivElement {
   const modalWindow = document.createElement('div');
   modalWindow.classList.add('modal');
@@ -7,13 +5,12 @@ export default function createLoadingWindow(msg): HTMLDivElement {
   const loadingWindow = document.createElement('div');
 
   const title = document.createElement('p');
-  const img = document.createElement('img');
+  const loadingWheel = document.createElement('div');
 
-  img.classList.add('center-block-element');
-  img.src = loading;
+  loadingWheel.classList.add('loader');
   title.innerText = msg;
   loadingWindow.appendChild(title);
-  loadingWindow.appendChild(img);
+  loadingWindow.appendChild(loadingWheel);
   loadingWindow.classList.add('modal-content');
   modalWindow.appendChild(loadingWindow);
   return modalWindow;
