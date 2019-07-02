@@ -6,12 +6,3 @@ export interface Elements {
   select: HTMLSelectElement;
   input: HTMLInputElement;
 }
-
-export interface HTMLElements {
-  span: HTMLSpanElement;
-  div: HTMLDivElement;
-  button: HTMLButtonElement;
-  input: HTMLInputElement;
-  select: HTMLSelectElement;
-  option: HTMLOptionElement;
-}

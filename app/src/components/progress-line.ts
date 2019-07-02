@@ -1,4 +1,3 @@
-import create from '../utils/create-element';
 import createCloseBtn from './close-button';
 export default class ProgressLine {
   private progressBar: HTMLDivElement;
@@ -9,16 +8,13 @@ export default class ProgressLine {
   public constructor(columnsContainer: HTMLElement, color: string) {
     this.percentage = 0;
     this.color = color;
-    this.progressText = create('span', {
-      className: 'progressText',
-      textContent: `0`,
-    });
-    this.progressBar = create(
-      'div',
-      { className: 'progressBar' },
-      this.progressText,
-      createCloseBtn('close-button second'),
-    );
+    this.progressText = document.createElement('span');
+    this.progressText.className = 'progressText';
+    this.progressText.textContent = '0';
+
+    this.progressBar = document.createElement('div');
+    this.progressBar.className = 'progressBar';
+    this.progressBar.append(this.progressText, createCloseBtn('close-button second'));
     columnsContainer.append(this.progressBar);
   }
 

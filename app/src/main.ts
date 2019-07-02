@@ -2,7 +2,6 @@ import Sorter from './utils/sorter';
 import Renderer from './utils/render';
 import drawTmpl from './template';
 import getRandomColor from './utils/random-color';
-import create from './utils/create-element';
 import getDataSource from './utils/data-sources';
 import createLoadingWindow from './components/data-loading-window';
 import createErrorWindow from './components/error-msg-window';
@@ -47,16 +46,15 @@ function addNewSorter(dest: HTMLElement): void {
         throw new Error(incorrectData);
       }
 
-      const sortUpBtn = create('button', { innerText: '⇒' });
-      const sortDownBtn = create('button', { innerText: '⇐' });
+      const sortUpBtn = document.createElement('button');
+      sortUpBtn.innerText = '⇒';
+      const sortDownBtn = document.createElement('button');
+      sortDownBtn.innerText = '⇐';
+
       const closeBtn = createCloseButton('close-button');
-      const colContainer = create(
-        'div',
-        { className: 'sorter-box' },
-        sortDownBtn,
-        sortUpBtn,
-        closeBtn,
-      );
+      const colContainer = document.createElement('div');
+      colContainer.className = 'sorter-box';
+      colContainer.append(sortDownBtn, sortUpBtn, closeBtn);
 
       const sorter = new Sorter(targetValue);
       const renderer = new Renderer(targetValue, colContainer, color);
