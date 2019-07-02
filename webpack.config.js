@@ -49,8 +49,6 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Sort',
-      template: './app/template/index.html',
-      inject: 'body',
     }),
     new CleanWebpackPlugin(),
   ],

@@ -1,6 +1,6 @@
-export default function createCloseButton(): HTMLButtonElement {
+export default function createCloseButton(className: string = ''): HTMLButtonElement {
   const closeButton = document.createElement('button');
-  closeButton.classList.add('close-button');
+  closeButton.className = `${className}`;
   closeButton.innerHTML = '✖';
 
   function removeNode(): void {
