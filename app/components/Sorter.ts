@@ -3,8 +3,8 @@ export default class Sorter {
   private indexes: number[] = [];
   private index: number = 0;
 
-  public constructor(targetArr: number[]) {
-    this.arr = [...targetArr];
+  public constructor(arrayToSort: number[]) {
+    this.arr = [...arrayToSort];
   }
 
   public doStepUp(): number[] {
