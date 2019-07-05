@@ -1,7 +1,7 @@
 import Column from './Column';
 
 class ColumnsContainer {
-  private container: HTMLDivElement;
+  public readonly container: HTMLDivElement;
   private indexes: number[] = [];
   private arr: number[];
   private spacing: number;
@@ -17,10 +17,6 @@ class ColumnsContainer {
       this.container.append(Column({ value, index, color, spacing }));
       this.indexes.push(index);
     });
-  }
-
-  public getColumnsContainer(): HTMLDivElement {
-    return this.container;
   }
 
   public updateColumnsPositions(newSequence: number[]): void {

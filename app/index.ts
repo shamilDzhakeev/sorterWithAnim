@@ -1,70 +1,62 @@
 import Sorter from './components/Sorter';
-import Button from './components/Button';
-import Renderer from './components/Render';
+import { PrimaryButton, CloseButton } from './components/Buttons';
 import ColumnsContainer from './components/ColumnsContainer';
+import EmptyBox from './components/EmptyBox';
+import SourceSelect from './components/SourceSelect';
 import './css/stl.css';
 
-function createAppTemplate(): HTMLDivElement {
-  const sorterList: Sorter[] = [];
+function App(): HTMLDivElement {
+  const sortersMap = new Map();
 
-  function createSorter(data: number[]): Sorter {
-    const sorter = new Sorter(data);
-    sorterList.push(sorter);
-    return sorter;
-  }
-
-  function createRenderer(data: number[], renderBox: HTMLDivElement, color: string): Renderer {
-    const renderer = new Renderer(data, renderBox, color);
-    return renderer;
-  }
-
-  const applicationContainer = document.createElement('div');
-  applicationContainer.className = 'application-container';
+  const applicationContainer = EmptyBox();
+  const select = SourceSelect();
 
   const dataInputField = document.createElement('input');
 
   const sortersWrapper = document.createElement('div');
   sortersWrapper.className = 'sorters-wrapper';
 
-  const sorterContainer = document.createElement('div');
-  sorterContainer.className = 'sorter-container';
+  const addNewSorter = (): void => {
+    console.dir((select.firstElementChild as HTMLSelectElement).selectedIndex);
 
-  const renderInputedData = (): void => {
+    const sorterContainer = EmptyBox();
+    sorterContainer.className = 'sorter-container';
+
     const normalizedData = dataInputField.value.split('').map(Number);
-    const sorter = createSorter(normalizedData);
+    const sorter = new Sorter(normalizedData);
+    const columnsContainer = new ColumnsContainer(normalizedData, '#084246');
 
-    const renderer = createRenderer(normalizedData, sorterContainer, 'gray');
+    sortersMap.set(sorter, { columnsContainer });
 
-    function down(): void {
-      renderer.updateRender(sorter.doStepBack());
+    const columns = columnsContainer.container;
+
+    function doStepBack(): void {
+      columnsContainer.updateColumnsPositions(sorter.doStepBack());
     }
 
-    function up(): void {
-      renderer.updateRender(sorter.doStepUp());
+    function doStepUp(): void {
+      columnsContainer.updateColumnsPositions(sorter.doStepUp());
     }
 
-    const sortDownbutton = Button(down, '<');
-    const sortUpbutton = Button(up, '>');
+    function deleteSorter(clickEvent): void {
+      sortersMap.delete(sorter);
 
+      clickEvent.target.parentElement.remove();
+    }
+
+    const sortDownButton = PrimaryButton(doStepBack, '<<');
+    const sortUpButton = PrimaryButton(doStepUp, '>>');
+    const closeButton = CloseButton(deleteSorter);
+
+    sorterContainer.append(sortDownButton, sortUpButton, closeButton, columns);
     sortersWrapper.append(sorterContainer);
   };
 
-  const renderButton = Button(renderInputedData, 'Render');
+  const renderButton = PrimaryButton(addNewSorter, 'Add');
+  applicationContainer.append(select, 'Value: ', dataInputField, renderButton, sortersWrapper);
 
-  applicationContainer.append(dataInputField, renderButton, sortersWrapper);
-
-  const conatiner = new ColumnsContainer([1, 2, 3], 'red');
-  let flag = true;
-  const testFunc = (): void => {
-    const arg = flag ? [1, 3, 2] : [1, 2, 3];
-    flag = !flag;
-    conatiner.updateColumnsPositions(arg);
-  };
-
-  setInterval(testFunc, 50000);
-  return conatiner.getColumnsContainer();
+  return applicationContainer;
 }
 
-const applicationContainer = createAppTemplate();
-
+const applicationContainer = App();
 document.body.append(applicationContainer);
