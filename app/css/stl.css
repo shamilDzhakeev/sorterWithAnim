@@ -14,11 +14,12 @@ p {
   text-align: center;
 }
 
-.emptyConatiner {
+.box {
   margin: 5px;
   padding: 5px;
   border: var(--dark-blue) 2px solid;
   border-radius: 5px;
+  position: relative;
 }
 
 .sorters-wrapper {
@@ -107,7 +108,6 @@ select {
   background-color: rgba(44, 62, 80, 0.5);
 }
 .center-block-element {
-  block-size: 25px;
   display: block;
   margin: 0 auto;
 }

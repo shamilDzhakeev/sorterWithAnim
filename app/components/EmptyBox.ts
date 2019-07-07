@@ -1,6 +1,6 @@
 const EmptyContainer = (): HTMLDivElement => {
   const box = document.createElement('div');
-  box.className = 'emptyConatiner';
+  box.className = 'box';
   return box;
 };
 

@@ -15,7 +15,7 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     contentBase: path.resolve(__dirname, './dist'),
-    port: 8085,
+    port: 8086,
     overlay: true,
   },
 
