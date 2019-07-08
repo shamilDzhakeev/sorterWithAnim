@@ -1,4 +1,4 @@
-Current state:
+## Визуализация алгоритма сортировки пузырьком.
 
 1. Настроен Webpack с Dev-server на перекомпиляцию TypeScrtipt в JS. См. конфиг Webpack.
 2. Включена Source Map. См. конфиг Webpack.
