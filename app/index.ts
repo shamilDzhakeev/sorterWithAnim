@@ -4,6 +4,7 @@ import './css/stl.css';
 
 function App(): HTMLDivElement {
   const application = EmptyBox();
+  application.classList.add('application');
 
   const sortersWrapper = document.createElement('div');
   sortersWrapper.className = 'sorters-wrapper';
@@ -15,5 +16,4 @@ function App(): HTMLDivElement {
 }
 
 const application = App();
-
 document.body.append(application);

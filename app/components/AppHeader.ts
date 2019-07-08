@@ -4,9 +4,13 @@ import Sorter from './Sorter';
 import ColumnsContainer from './ColumnsContainer';
 import modalWindow from './ModalWindow';
 import { PrimaryButton, CloseButton } from './Buttons';
-import { loadingWheel, dataChecker } from './utils';
+import { loadingWheel, dataChecker, getRandomColor } from './utils';
+import ProgressLine from './ProgressLine';
 
 const AppHeader = (sortersWrapper): HTMLDivElement => {
+  const sorters = new Map();
+  let totalStepsCount = 0;
+
   const waitMsg = 'Загрузка данных. Пожалуйста подождите.';
   const incorrectData = 'Данные некорректны!';
   const header = document.createElement('div');
@@ -30,7 +34,7 @@ const AppHeader = (sortersWrapper): HTMLDivElement => {
         err.message,
         PrimaryButton((): void => {
           errorWindow.remove();
-        }, 'Ok')
+        }, 'Ok'),
       );
 
       sortersWrapper.append(errorWindow);
@@ -40,9 +44,8 @@ const AppHeader = (sortersWrapper): HTMLDivElement => {
   const getDataButton = PrimaryButton(getDataFromSource, '+');
   getDataButton.style.display = 'none';
 
-  //========================================
-
   const addNewSorter = (): void => {
+    let previousLenght = 0;
     const sorterContainer = EmptyBox();
     sorterContainer.classList.add('sorter-container');
 
@@ -51,26 +54,46 @@ const AppHeader = (sortersWrapper): HTMLDivElement => {
       if (!dataChecker(normalizedData)) {
         throw new Error(incorrectData);
       }
+      const color = getRandomColor();
       const sorter = new Sorter(normalizedData);
-      const columnsContainer = new ColumnsContainer(normalizedData, '#084246');
+      const columnsContainer = new ColumnsContainer(normalizedData, color);
+      const progressLine = new ProgressLine(document.body, color);
 
-      const columns = columnsContainer.container;
+      sorters.set(sorter, { columnsContainer, progressLine });
+
+      function updateProgressLine(): void {
+        const sorterCurrentLength = sorter.getCurrentSortLenght();
+        if (previousLenght + 1 === sorterCurrentLength) {
+          totalStepsCount++;
+        } else if (previousLenght - 1 === sorterCurrentLength) {
+          totalStepsCount--;
+        }
+        previousLenght = sorterCurrentLength;
+
+        sorters.forEach((value, sorter): void => {
+          value.progressLine.updateProgressLine(totalStepsCount, sorter.getCurrentSortLenght());
+        });
+      }
 
       function doStepBack(): void {
         columnsContainer.updateColumnsPositions(sorter.doStepBack());
+        updateProgressLine();
       }
 
       function doStepUp(): void {
         columnsContainer.updateColumnsPositions(sorter.doStepUp());
+        updateProgressLine();
       }
 
       function deleteSorter(clickEvent): void {
+        sorters.delete(sorter);
         clickEvent.target.parentElement.remove();
       }
 
       const sortDownButton = PrimaryButton(doStepBack, '<<');
       const sortUpButton = PrimaryButton(doStepUp, '>>');
       const closeButton = CloseButton(deleteSorter);
+      const columns = columnsContainer.container;
 
       sorterContainer.append(sortDownButton, sortUpButton, closeButton, columns);
       sortersWrapper.append(sorterContainer);
@@ -79,13 +102,11 @@ const AppHeader = (sortersWrapper): HTMLDivElement => {
         err.message,
         PrimaryButton((): void => {
           errorWindow.remove();
-        }, 'Ok')
+        }, 'Ok'),
       );
       sortersWrapper.append(errorWindow);
     }
   };
-
-  //===========================================================
 
   const addSorterButton = PrimaryButton(addNewSorter, 'Add');
 
@@ -100,17 +121,15 @@ const AppHeader = (sortersWrapper): HTMLDivElement => {
     select.append(option);
   }
 
-  select.addEventListener(
-    'change',
-    (): void => {
-      if (select.selectedIndex === 1) {
-        getDataButton.style.display = 'inline-block';
-      } else {
-        getDataButton.style.display = 'none';
-      }
+  select.addEventListener('change', (): void => {
+    if (select.selectedIndex === 1) {
+      getDataButton.style.display = 'inline-block';
+    } else {
+      getDataButton.style.display = 'none';
     }
-  );
+  });
 
+  header.className = 'application-header';
   header.append('Source:', select, getDataButton, br);
   header.append('Value:', dataInputField, addSorterButton);
 

@@ -42,7 +42,7 @@ export default class Sorter {
     return this.arr;
   }
 
-  public getCurrentSortState(): number {
+  public getCurrentSortLenght(): number {
     return this.index;
   }
 
