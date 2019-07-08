@@ -108,11 +108,11 @@ const AppHeader = (sortersWrapper): HTMLDivElement => {
     }
   };
 
-  const addSorterButton = PrimaryButton(addNewSorter, 'Add');
+  const addSorterButton = PrimaryButton(addNewSorter, 'Отрисовать');
 
   const sources = {
-    input: 'Manual input',
-    server: 'From server',
+    input: 'Ввести вручную',
+    server: 'Получить от сервера',
   };
 
   for (const key in sources) {
@@ -130,8 +130,8 @@ const AppHeader = (sortersWrapper): HTMLDivElement => {
   });
 
   header.className = 'application-header';
-  header.append('Source:', select, getDataButton, br);
-  header.append('Value:', dataInputField, addSorterButton);
+  header.append('Источник:', select, getDataButton, br);
+  header.append('Данные:', dataInputField, addSorterButton);
 
   return header;
 };
