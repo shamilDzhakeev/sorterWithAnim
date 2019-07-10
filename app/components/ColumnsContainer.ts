@@ -1,7 +1,7 @@
 import Column from './Column';
 
 class ColumnsContainer {
-  public readonly container: HTMLDivElement;
+  public readonly columnsContainer: HTMLDivElement[] = [];
   private indexes: number[] = [];
   private arr: number[];
   private spacing: number;
@@ -10,29 +10,37 @@ class ColumnsContainer {
     this.arr = arr;
     const spacing = 30;
     this.spacing = spacing;
-    this.container = document.createElement('div');
-    this.container.className = 'columns-container';
 
-    this.arr.forEach((value, index): void => {
-      this.container.append(Column({ value, index, color, spacing }));
-      this.indexes.push(index);
-    });
+    this.arr.forEach(
+      (height, index): void => {
+        this.columnsContainer.push(Column({ height, index, color, spacing }));
+        this.indexes.push(index);
+      }
+    );
+  }
+
+  private static swap(arr: number[], i: number, j: number): void {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 
   public updateColumnsPositions(newSequence: number[]): void {
-    const columns = this.container.getElementsByClassName('column') as HTMLCollectionOf<
-      HTMLDivElement
-    >;
-    for (let i = 0; i < newSequence.length; i += 1) {
+    for (let i = 0; i < newSequence.length; i++) {
       if (newSequence[i] !== this.arr[i]) {
-        [this.indexes[i], this.indexes[i + 1]] = [this.indexes[i + 1], this.indexes[i]];
-        break;
+        for (let j = i; j < newSequence.length; j++) {
+          if (newSequence[i] === this.arr[j]) {
+            ColumnsContainer.swap(this.arr, i, j);
+            ColumnsContainer.swap(this.indexes, i, j);
+            break;
+          }
+        }
       }
     }
 
-    Array.prototype.forEach.call(columns, (_: HTMLDivElement, i: number): void => {
-      columns[this.indexes[i]].style.left = `${i * this.spacing}px`;
-    });
+    this.columnsContainer.forEach(
+      (column: HTMLDivElement, i: number, columnsArr: HTMLDivElement[]): void => {
+        columnsArr[this.indexes[i]].style.left = `${i * this.spacing}px`;
+      }
+    );
 
     this.arr = [...newSequence];
   }

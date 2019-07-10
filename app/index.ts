@@ -1,19 +1,3 @@
-import EmptyBox from './components/EmptyBox';
-import AppHeader from './components/AppHeader';
-import './css/stl.css';
+import App from './components/App';
 
-function App(): HTMLDivElement {
-  const application = EmptyBox();
-  application.classList.add('application');
-
-  const sortersWrapper = document.createElement('div');
-  sortersWrapper.className = 'sorters-wrapper';
-
-  const appHeader = AppHeader(sortersWrapper);
-  application.append(appHeader, sortersWrapper);
-
-  return application;
-}
-
-const application = App();
-document.body.append(application);
+document.body.append(App());
