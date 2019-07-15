@@ -23,7 +23,7 @@ class ColumnsContainer {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 
-  public updateColumnsPositions(newSequence: number[]): void {
+  public update(newSequence: number[]): void {
     for (let i = 0; i < newSequence.length; i++) {
       if (newSequence[i] !== this.arr[i]) {
         for (let j = i; j < newSequence.length; j++) {

@@ -3,7 +3,7 @@ import { isValid } from './utils';
 const NumberInputField = (): HTMLInputElement => {
   const input = document.createElement('input');
 
-  input.oninput = evt => {
+  input.oninput = (evt): void => {
     const target = evt.target as HTMLInputElement;
     const inputtedValue = target.value;
 
